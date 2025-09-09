@@ -27,18 +27,17 @@
     .avatar>div{width:100%;height:100%;border-radius:50%;background:#0b0f17;display:grid;place-items:center;font-weight:800;letter-spacing:.3px}
     .nav a{opacity:.9} .nav a:hover{opacity:1}
 
-    /* HERO */
-    .hero-wrap{position:relative;overflow:hidden}
+    /* HERO / SOBRE MI PRIMERO */
+    .about-hero{position:relative;overflow:hidden}
     canvas#fx{position:absolute;inset:0;z-index:0}
-    .hero{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding:64px 24px}
+    .about{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:center;padding:56px 24px}
     .chip{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(138,180,247,.12);border:1px solid rgba(138,180,247,.25);color:var(--muted);font-size:.85rem}
-    .hero h1{font-size:clamp(2rem,4vw,3rem);line-height:1.15;margin:10px 0 6px;text-shadow:0 2px 18px rgba(40,80,150,.28)}
-    .hero p{margin:0;color:var(--muted)}
-    .cta{display:flex;gap:12px;margin-top:18px}
-    .btn{background:var(--brand);color:#071119;border:none;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 8px 30px -12px var(--ring)}
-    .btn:hover{transform:translateY(-1px)}
-    .btn.secondary{background:#0d1422;color:var(--text);border:1px solid #213150}
+    .about h1{font-size:clamp(2rem,4vw,3rem);line-height:1.15;margin:10px 0 6px;text-shadow:0 2px 18px rgba(40,80,150,.28)}
+    .about p{margin:0;color:var(--muted)}
     .glassy{background:var(--glass);border:1px solid #1b2740;border-radius:16px;padding:18px;box-shadow:var(--glow)}
+    .photo-wrap{display:grid;place-items:center}
+    .photo{width:180px;height:180px;border-radius:50%;background:#0b0f17 url('assets/erick.jpg') center/cover no-repeat;border:2px solid #213150;box-shadow:var(--glow)}
+    .photo-fallback{width:180px;height:180px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--accent));font-weight:900;color:#06101c}
 
     /* SECTIONS */
     section{margin-top:42px}
@@ -55,17 +54,13 @@
     .control{padding:10px 12px;border-radius:10px;border:1px solid #213150;background:#0b1220;color:#e8eef9;outline:none}
     .control:focus{box-shadow:0 0 0 3px rgba(90,169,255,.25)}
 
-    /* ABOUT */
-    .about{display:grid;grid-template-columns:1fr 1fr;gap:18px}
-    .timeline{border-left:2px dashed #274069;padding-left:16px}
-
     /* REVEAL ON SCROLL */
     .reveal{opacity:0;transform:translateY(18px) scale(.98);filter:blur(4px)}
     .reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0);transition:all .7s cubic-bezier(.2,.8,.2,1)}
 
     footer{margin:56px 0 16px;color:var(--muted);font-size:.9rem}
 
-    @media (max-width:1000px){ .hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.about{grid-template-columns:1fr} }
+    @media (max-width:1000px){ .about{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr} }
     @media (max-width:640px){ .grid{grid-template-columns:1fr} .nav .row{display:none} }
   </style>
 </head>
@@ -82,99 +77,85 @@
         </div>
       </div>
       <nav class="row">
+        <a href="#about">Sobre mí</a>
         <a href="#highlights">Destacados</a>
         <a href="#projects">Proyectos</a>
-        <a href="#about">Sobre mí</a>
         <a href="#contacto">Contacto</a>
         <a href="https://github.com/291efx" target="_blank" rel="noopener">GitHub ↗</a>
       </nav>
     </div>
   </header>
 
-  <!-- HERO con partículas -->
-  <div class="hero-wrap">
+  <!-- SOBRE MÍ (PRIMERO) con foto -->
+  <div class="about-hero">
     <canvas id="fx" aria-hidden="true"></canvas>
-    <section class="hero container">
-      <div class="reveal">
-        <span class="chip">Disponible · Java/Spring • Angular • Android • iOS • QA</span>
-        <h1>Creo productos <em style="color:var(--accent);font-style:normal">web y móviles</em> con foco en calidad, rendimiento y mantenibilidad.</h1>
-        <p>Experiencia en <strong>Java/Spring Boot</strong>, <strong>Angular/TypeScript</strong>, <strong>Android (Kotlin)</strong>, 
-           <strong>iOS (UIKit/Core Data)</strong>, <strong>MySQL/SQLite</strong> y <strong>automatización QA</strong> con JUnit/Selenium.</p>
-        <div class="cta">
-          <a class="btn" href="#projects">Ver proyectos</a>
-          <a class="btn secondary" href="#contacto">Hablemos</a>
-        </div>
+    <section id="about" class="about container">
+      <div class="photo-wrap reveal">
+        <!-- Reemplaza assets/erick.jpg con tu foto. Si no existe, se muestra fallback con EF -->
+        <div class="photo" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"></div>
+        <div class="photo-fallback" style="display:none">EF</div>
       </div>
       <div class="glassy reveal">
-        <h3>Último proyecto destacado</h3>
-        <div class="meta">2025 · iOS · Core Data + Firebase</div>
-        <p><strong>PetLife</strong> — Gestión de mascotas: perfiles, recetas, recordatorios y sync local/nube. UI programática (sin Storyboard).</p>
-        <div class="tags">
-          <span class="tag">Swift</span><span class="tag">Core Data</span><span class="tag">Firebase</span><span class="tag">UIKit</span>
+        <span class="chip">Disponible · Java/Spring • Angular • Android • iOS • QA</span>
+        <h1>Desarrollador de software — construyo productos <em style="color:var(--accent);font-style:normal">web y móviles</em> de alta calidad.</h1>
+        <p>Experiencia en <strong>Java/Spring Boot</strong>, <strong>Angular/TypeScript</strong>, 
+           <strong>Android (Kotlin)</strong>, <strong>iOS (UIKit/Core Data)</strong>, bases de datos 
+           <strong>MySQL/SQLite</strong> y <strong>automatización QA</strong> (JUnit/Selenium). Arquitectura limpia (SOLID), documentación y CI con GitHub Actions.</p>
+        <ul style="margin:10px 0 0 18px;color:var(--muted)">
+          <li>Diseño/consumo de APIs REST y modelado de datos.</li>
+          <li>Integración de autenticación, manejo de archivos y notificaciones.</li>
+          <li>Trabajo colaborativo con GitFlow y foco en mantenibilidad/rendimiento.</li>
+        </ul>
+        <div class="row" style="margin-top:14px">
+          <a class="btn" href="#projects">Ver proyectos</a>
+          <a class="btn secondary" href="#contacto">Hablemos</a>
         </div>
       </div>
     </section>
   </div>
 
-  <!-- DESTACADOS -->
+  <!-- DESTACADOS (orden: Blog API, Frontend, PetLife al final con logo) -->
   <section id="highlights" class="container">
     <h2 class="reveal">Proyectos destacados</h2>
     <div class="grid">
+      <!-- BlogApp API REST -->
       <article class="card reveal">
-        <h3>🚗 Sistema de Gestión de Autos</h3>
-        <div class="meta">Java · Spring Boot · Hibernate · MySQL</div>
-        <p>CRUD completo con capas claras (controller/service/repository), validaciones y consultas óptimas.</p>
-        <div class="row">
-          <a class="btn secondary" href="#" target="_blank" rel="noopener">Código</a>
-        </div>
-        <div class="tags"><span class="tag">REST</span><span class="tag">JPA</span><span class="tag">MySQL</span></div>
-      </article>
-      <article class="card reveal">
-        <h3>📊 Ventas con Hilos (REST API)</h3>
-        <div class="meta">Spring Boot · Threads · MySQL</div>
-        <p>Servicio REST que procesa ventas con hilos y handlers; pruebas y documentación de endpoints.</p>
-        <div class="row">
-          <a class="btn secondary" href="#" target="_blank" rel="noopener">Código</a>
-        </div>
-        <div class="tags"><span class="tag">Concurrencia</span><span class="tag">REST</span></div>
-      </article>
-      <article class="card reveal">
-        <h3>📝 BlogApp (API REST)</h3>
+        <h3>📝 BlogApp — API REST</h3>
         <div class="meta">Java · Spring Boot · Maven · JUnit</div>
-        <p>API de publicaciones con auth, manejo de archivos y pruebas. Preparada para CI/CD.</p>
+        <p>API de publicaciones con autenticación, manejo de archivos y pruebas. Arquitectura limpia y lista para CI/CD.</p>
         <div class="row">
           <a class="btn secondary" href="https://github.com/291efx/BlogApp" target="_blank" rel="noopener">Código</a>
           <a class="btn" href="https://github.com/291efx/BlogApp" target="_blank" rel="noopener">README</a>
         </div>
         <div class="tags"><span class="tag">Spring</span><span class="tag">JUnit5</span><span class="tag">REST</span></div>
       </article>
+
+      <!-- BlogApp Frontend -->
       <article class="card reveal">
-        <h3>⚡ BlogApp Frontend (Angular)</h3>
+        <h3>⚡ BlogApp — Frontend (Angular)</h3>
         <div class="meta">Angular 17 · TypeScript</div>
-        <p>SPA para consumir la API de BlogApp: componentes reutilizables, rutas protegidas y base para Pages.</p>
+        <p>SPA para consumir la API de BlogApp. Componentes reutilizables, rutas protegidas y base para hosting en Pages.</p>
         <div class="row">
           <a class="btn secondary" href="https://github.com/291efx/BlogApp_Frontend" target="_blank" rel="noopener">Código</a>
           <a class="btn" href="https://github.com/291efx/BlogApp_Frontend" target="_blank" rel="noopener">README</a>
         </div>
         <div class="tags"><span class="tag">Angular</span><span class="tag">SPA</span></div>
       </article>
+
+      <!-- PetLife (último en destacados) -->
       <article class="card reveal">
-        <h3>📱 Android — Lo Más Vendido</h3>
-        <div class="meta">Android · Kotlin/Java</div>
-        <p>Listado de productos con RecyclerView y carrito; arquitectura simple y navegación clara.</p>
-        <div class="row">
-          <a class="btn secondary" href="#" target="_blank" rel="noopener">Código</a>
+        <div class="row" style="justify-content:space-between;align-items:center">
+          <h3 style="margin:0">🐾 PetLife (iOS)</h3>
+          <!-- Logo opcional: sube assets/petlife-logo.png -->
+          <img src="assets/petlife-logo.png" alt="PetLife" style="height:32px;opacity:.95" onerror="this.style.display='none'">
         </div>
-        <div class="tags"><span class="tag">Android</span><span class="tag">UI</span></div>
-      </article>
-      <article class="card reveal">
-        <h3>💾 CRUD SQLite — Almacenes</h3>
-        <div class="meta">Android · SQLite</div>
-        <p>Gestión de productos en DB local <em>Almacenes</em> con validaciones y UX simple.</p>
+        <div class="meta">UIKit · Core Data · Firebase</div>
+        <p>App nativa para gestionar perfiles, recetas y recordatorios de mascotas. UI programática (sin Storyboard) y persistencia local + sync.</p>
         <div class="row">
-          <a class="btn secondary" href="#" target="_blank" rel="noopener">Código</a>
+          <a class="btn secondary" href="https://github.com/291efx/PetLife" target="_blank" rel="noopener">Código</a>
+          <a class="btn" href="https://github.com/291efx/PetLife" target="_blank" rel="noopener">README</a>
         </div>
-        <div class="tags"><span class="tag">SQLite</span><span class="tag">Mobile</span></div>
+        <div class="tags"><span class="tag">Swift</span><span class="tag">Core Data</span><span class="tag">Firebase</span></div>
       </article>
     </div>
   </section>
@@ -197,30 +178,6 @@
       </div>
     </div>
     <div class="grid" id="repo-list"></div>
-  </section>
-
-  <!-- SOBRE MÍ -->
-  <section id="about" class="container about">
-    <div class="card reveal">
-      <h2>Sobre mí</h2>
-      <p>Soy <strong>Erick Fiestas</strong>, desarrollador de software egresado de Computación e Informática. Me especializo en
-        <strong>APIs REST con Java/Spring Boot</strong>, <strong>SPAs con Angular/TypeScript</strong> y
-        <strong>apps móviles</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabajo con arquitectura limpia (SOLID), control de versiones y
-        <strong>testing automatizado</strong> (JUnit/Selenium). Me motivan los retos donde la <strong>calidad</strong>,
-        el <strong>rendimiento</strong> y el <strong>aprendizaje continuo</strong> son clave.</p>
-      <ul>
-        <li>Diseño de DB (MySQL/SQLite), consumo/creación de APIs y documentación.</li>
-        <li>CI/CD con GitHub Actions; monitoreo básico y buenas prácticas de logging.</li>
-        <li>Integración de autenticación, manejo de archivos y notificaciones.</li>
-        <li>Trabajo colaborativo con GitFlow y comunicación clara con el equipo.</li>
-      </ul>
-    </div>
-    <div class="card timeline reveal">
-      <h2>Timeline</h2>
-      <div class="item"><strong>2025</strong> — PetLife iOS (Core Data + Firebase).</div>
-      <div class="item"><strong>2024</strong> — BlogApp API + Frontend Angular 17.</div>
-      <div class="item"><strong>2023</strong> — Web responsive y primeras apps Android.</div>
-    </div>
   </section>
 
   <!-- CONTACTO -->
@@ -248,10 +205,10 @@
     },{threshold:.12});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Partículas sutiles
+    // Partículas sutiles del header
     const c = document.getElementById('fx'), ctx = c.getContext('2d');
     let W,H,parts=[];
-    function resize(){ W=c.width=window.innerWidth; H=c.height=300; }
+    function resize(){ W=c.width=window.innerWidth; H=c.height=320; }
     function rnd(a,b){ return Math.random()*(b-a)+a }
     function spawn(){
       parts = Array.from({length:80}).map(()=>({
@@ -307,7 +264,6 @@
       });
       countEl.textContent = `${filtered.length} proyecto${filtered.length===1?'':'s'} visibles`;
       list.innerHTML = filtered.map(card).join('');
-      // activar reveal para nuevas tarjetas
       document.querySelectorAll('#repo-list .reveal').forEach(el=>io.observe(el));
     }
 
@@ -329,4 +285,3 @@
   </script>
 </body>
 </html>
-
