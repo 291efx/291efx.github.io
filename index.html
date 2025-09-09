@@ -230,287 +230,313 @@
 <footer class="container">© <span id="y"></span> Erick Fiestas · <span data-i18n="footer.made">Hecho con HTML/CSS puro y GitHub Pages</span></footer>
 
 <script>
-    // ===== Año =====
-    document.getElementById('y').textContent = new Date().getFullYear();
+    (function () {
+        function start() {
+            console.clear();
+            console.log("[EF] i18n start");
 
-    // ===== Reveal on scroll =====
-    const io = new IntersectionObserver((entries)=>{
-        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
-    },{threshold:.12});
-    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+            /* ===== Año en footer ===== */
+            const yearEl = document.getElementById('y');
+            if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-    // ===========================
-    // 1) I18N (ES/EN/PT) PRIMERO
-    // ===========================
-    const dict = {
-        es: {
-            "meta.title":"Erick Fiestas — Portafolio",
-            "nav.tag":"Ingeniería · Web/Móvil · QA",
-            "nav.about":"Sobre mí",
-            "nav.highlights":"Destacados",
-            "nav.projects":"Proyectos",
-            "nav.contact":"Contacto",
+            /* ===== Reveal on scroll ===== */
+            const io = new IntersectionObserver((entries)=>{
+                entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+            },{threshold:.12});
+            document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-            "about.badge":"Disponible · Java/Spring • Angular • Android • iOS • QA",
-            "about.title":"Desarrollador de software — construyo productos <em style=\"color:var(--accent);font-style:normal\">web y móviles</em> de alta calidad.",
-            "about.p1":"Especializado en <strong>APIs REST con Java/Spring Boot</strong>, <strong>SPAs con Angular/TypeScript</strong> y <strong>aplicaciones móviles</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabajo con <strong>arquitectura limpia (SOLID)</strong>, <strong>automatización de pruebas</strong> (JUnit/Selenium) y CI con GitHub Actions.",
-            "about.p2":"Me enfoco en entregar software mantenible, escalable y medible: documentación clara, diseño de bases de datos (MySQL/SQLite), integración de autenticación, manejo de archivos y notificaciones, y colaboración eficiente con GitFlow.",
-            "about.li1":"Diseño/consumo de APIs y modelado de datos centrado en el dominio.",
-            "about.li2":"Trazabilidad de calidad con pruebas unitarias e integración.",
-            "about.li3":"Optimización de rendimiento y UX cuidada.",
-            "about.cta.projects":"Ver proyectos",
-            "about.cta.contact":"Hablemos",
-            "about.kpi1":"+5 proyectos full-stack",
-            "about.kpi2":"+3 apps móviles",
-            "about.kpi3":"+2 flujos CI/CD",
+            /* ===========================
+               1) I18N (ES/EN/PT) PRIMERO
+               =========================== */
+            const dict = {
+                es: {
+                    "meta.title":"Erick Fiestas — Portafolio",
+                    "nav.tag":"Ingeniería · Web/Móvil · QA",
+                    "nav.about":"Sobre mí",
+                    "nav.highlights":"Destacados",
+                    "nav.projects":"Proyectos",
+                    "nav.contact":"Contacto",
 
-            "high.title":"Proyectos destacados",
-            "high.blogapi.title":"📝 BlogApp — API REST",
-            "high.blogapi.meta":"Java · Spring Boot · Maven · JUnit",
-            "high.blogapi.desc":"API de publicaciones con autenticación, manejo de archivos y pruebas. Arquitectura limpia y lista para CI/CD.",
-            "high.blogfe.title":"⚡ BlogApp — Frontend (Angular)",
-            "high.blogfe.meta":"Angular 17 · TypeScript",
-            "high.blogfe.desc":"SPA para consumir la API de BlogApp. Componentes reutilizables, rutas protegidas y base para hosting en Pages.",
-            "high.petlife.title":"🐾 PetLife (iOS)",
-            "high.petlife.meta":"UIKit · Core Data · Firebase",
-            "high.petlife.desc":"App nativa para gestionar perfiles, recetas y recordatorios de mascotas. UI programática (sin Storyboard) y persistencia local + sync.",
+                    "about.badge":"Disponible · Java/Spring • Angular • Android • iOS • QA",
+                    "about.title":"Desarrollador de software — construyo productos <em style=\"color:var(--accent);font-style:normal\">web y móviles</em> de alta calidad.",
+                    "about.p1":"Especializado en <strong>APIs REST con Java/Spring Boot</strong>, <strong>SPAs con Angular/TypeScript</strong> y <strong>aplicaciones móviles</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabajo con <strong>arquitectura limpia (SOLID)</strong>, <strong>automatización de pruebas</strong> (JUnit/Selenium) y CI con GitHub Actions.",
+                    "about.p2":"Me enfoco en entregar software mantenible, escalable y medible: documentación clara, diseño de bases de datos (MySQL/SQLite), integración de autenticación, manejo de archivos y notificaciones, y colaboración eficiente con GitFlow.",
+                    "about.li1":"Diseño/consumo de APIs y modelado de datos centrado en el dominio.",
+                    "about.li2":"Trazabilidad de calidad con pruebas unitarias e integración.",
+                    "about.li3":"Optimización de rendimiento y UX cuidada.",
+                    "about.cta.projects":"Ver proyectos",
+                    "about.cta.contact":"Hablemos",
+                    "about.kpi1":"+5 proyectos full-stack",
+                    "about.kpi2":"+3 apps móviles",
+                    "about.kpi3":"+2 flujos CI/CD",
 
-            "btn.code":"Código",
-            "btn.readme":"README",
-            "btn.demo":"Demo",
+                    "high.title":"Proyectos destacados",
+                    "high.blogapi.title":"📝 BlogApp — API REST",
+                    "high.blogapi.meta":"Java · Spring Boot · Maven · JUnit",
+                    "high.blogapi.desc":"API de publicaciones con autenticación, manejo de archivos y pruebas. Arquitectura limpia y lista para CI/CD.",
+                    "high.blogfe.title":"⚡ BlogApp — Frontend (Angular)",
+                    "high.blogfe.meta":"Angular 17 · TypeScript",
+                    "high.blogfe.desc":"SPA para consumir la API de BlogApp. Componentes reutilizables, rutas protegidas y base para hosting en Pages.",
+                    "high.petlife.title":"🐾 PetLife (iOS)",
+                    "high.petlife.meta":"UIKit · Core Data · Firebase",
+                    "high.petlife.desc":"App nativa para gestionar perfiles, recetas y recordatorios de mascotas. UI programática (sin Storyboard) y persistencia local + sync.",
 
-            "all.title":"Todos los proyectos",
-            "all.from":"Desde GitHub (@291efx)",
-            "all.search_ph":"Buscar proyecto…",
-            "all.lang_all":"Todos los lenguajes",
-            "all.counter_one":"proyecto visible",
-            "all.counter_many":"proyectos visibles",
-            "all.load_error":"No se pudieron cargar los repositorios.",
+                    "btn.code":"Código",
+                    "btn.readme":"README",
+                    "btn.demo":"Demo",
 
-            "contact.title":"Contacto",
-            "contact.p1":"¿Construimos algo juntos? Escríbeme:",
-            "footer.made":"Hecho con HTML/CSS puro y GitHub Pages"
-        },
-        en: {
-            "meta.title":"Erick Fiestas — Portfolio",
-            "nav.tag":"Engineering · Web/Mobile · QA",
-            "nav.about":"About",
-            "nav.highlights":"Highlights",
-            "nav.projects":"Projects",
-            "nav.contact":"Contact",
+                    "all.title":"Todos los proyectos",
+                    "all.from":"Desde GitHub (@291efx)",
+                    "all.search_ph":"Buscar proyecto…",
+                    "all.lang_all":"Todos los lenguajes",
+                    "all.counter_one":"proyecto visible",
+                    "all.counter_many":"proyectos visibles",
+                    "all.load_error":"No se pudieron cargar los repositorios.",
 
-            "about.badge":"Available · Java/Spring • Angular • Android • iOS • QA",
-            "about.title":"Software developer — I build high-quality <em style=\"color:var(--accent);font-style:normal\">web and mobile</em> products.",
-            "about.p1":"Specialized in <strong>REST APIs with Java/Spring Boot</strong>, <strong>SPAs with Angular/TypeScript</strong>, and <strong>mobile apps</strong> for Android (Kotlin) and iOS (UIKit/Core Data). I work with <strong>clean architecture (SOLID)</strong>, <strong>test automation</strong> (JUnit/Selenium), and CI using GitHub Actions.",
-            "about.p2":"I focus on maintainable, scalable, measurable software: clear documentation, database design (MySQL/SQLite), auth/file/notifications integrations, and effective collaboration with GitFlow.",
-            "about.li1":"Domain-driven API design/consumption and data modeling.",
-            "about.li2":"Quality traceability with unit/integration tests.",
-            "about.li3":"Performance optimization and polished UX.",
-            "about.cta.projects":"See projects",
-            "about.cta.contact":"Let’s talk",
-            "about.kpi1":"+5 full-stack projects",
-            "about.kpi2":"+3 mobile apps",
-            "about.kpi3":"+2 CI/CD pipelines",
+                    "contact.title":"Contacto",
+                    "contact.p1":"¿Construimos algo juntos? Escríbeme:",
+                    "footer.made":"Hecho con HTML/CSS puro y GitHub Pages"
+                },
+                en: {
+                    "meta.title":"Erick Fiestas — Portfolio",
+                    "nav.tag":"Engineering · Web/Mobile · QA",
+                    "nav.about":"About",
+                    "nav.highlights":"Highlights",
+                    "nav.projects":"Projects",
+                    "nav.contact":"Contact",
 
-            "high.title":"Featured projects",
-            "high.blogapi.title":"📝 BlogApp — REST API",
-            "high.blogapi.meta":"Java · Spring Boot · Maven · JUnit",
-            "high.blogapi.desc":"Publishing API with authentication, file handling and tests. Clean architecture and CI/CD-ready.",
-            "high.blogfe.title":"⚡ BlogApp — Frontend (Angular)",
-            "high.blogfe.meta":"Angular 17 · TypeScript",
-            "high.blogfe.desc":"SPA consuming BlogApp API. Reusable components, protected routes and GitHub Pages ready.",
-            "high.petlife.title":"🐾 PetLife (iOS)",
-            "high.petlife.meta":"UIKit · Core Data · Firebase",
-            "high.petlife.desc":"Native app to manage pet profiles, recipes and reminders. Programmatic UI (no Storyboard) and local persistence + sync.",
+                    "about.badge":"Available · Java/Spring • Angular • Android • iOS • QA",
+                    "about.title":"Software developer — I build high-quality <em style=\"color:var(--accent);font-style:normal\">web and mobile</em> products.",
+                    "about.p1":"Specialized in <strong>REST APIs with Java/Spring Boot</strong>, <strong>SPAs with Angular/TypeScript</strong>, and <strong>mobile apps</strong> for Android (Kotlin) and iOS (UIKit/Core Data). I work with <strong>clean architecture (SOLID)</strong>, <strong>test automation</strong> (JUnit/Selenium), and CI using GitHub Actions.",
+                    "about.p2":"I focus on maintainable, scalable, measurable software: clear documentation, database design (MySQL/SQLite), auth/file/notifications integrations, and effective collaboration with GitFlow.",
+                    "about.li1":"Domain-driven API design/consumption and data modeling.",
+                    "about.li2":"Quality traceability with unit/integration tests.",
+                    "about.li3":"Performance optimization and polished UX.",
+                    "about.cta.projects":"See projects",
+                    "about.cta.contact":"Let’s talk",
+                    "about.kpi1":"+5 full-stack projects",
+                    "about.kpi2":"+3 mobile apps",
+                    "about.kpi3":"+2 CI/CD pipelines",
 
-            "btn.code":"Code",
-            "btn.readme":"README",
-            "btn.demo":"Demo",
+                    "high.title":"Featured projects",
+                    "high.blogapi.title":"📝 BlogApp — REST API",
+                    "high.blogapi.meta":"Java · Spring Boot · Maven · JUnit",
+                    "high.blogapi.desc":"Publishing API with authentication, file handling and tests. Clean architecture and CI/CD-ready.",
+                    "high.blogfe.title":"⚡ BlogApp — Frontend (Angular)",
+                    "high.blogfe.meta":"Angular 17 · TypeScript",
+                    "high.blogfe.desc":"SPA consuming BlogApp API. Reusable components, protected routes and GitHub Pages ready.",
+                    "high.petlife.title":"🐾 PetLife (iOS)",
+                    "high.petlife.meta":"UIKit · Core Data · Firebase",
+                    "high.petlife.desc":"Native app to manage pet profiles, recipes and reminders. Programmatic UI (no Storyboard) and local persistence + sync.",
 
-            "all.title":"All projects",
-            "all.from":"From GitHub (@291efx)",
-            "all.search_ph":"Search project…",
-            "all.lang_all":"All languages",
-            "all.counter_one":"project visible",
-            "all.counter_many":"projects visible",
-            "all.load_error":"Repositories could not be loaded.",
+                    "btn.code":"Code",
+                    "btn.readme":"README",
+                    "btn.demo":"Demo",
 
-            "contact.title":"Contact",
-            "contact.p1":"Want to build something together? Write me:",
-            "footer.made":"Built with pure HTML/CSS and GitHub Pages"
-        },
-        pt: {
-            "meta.title":"Erick Fiestas — Portfólio",
-            "nav.tag":"Engenharia · Web/Mobile · QA",
-            "nav.about":"Sobre mim",
-            "nav.highlights":"Destaques",
-            "nav.projects":"Projetos",
-            "nav.contact":"Contato",
+                    "all.title":"All projects",
+                    "all.from":"From GitHub (@291efx)",
+                    "all.search_ph":"Search project…",
+                    "all.lang_all":"All languages",
+                    "all.counter_one":"project visible",
+                    "all.counter_many":"projects visible",
+                    "all.load_error":"Repositories could not be loaded.",
 
-            "about.badge":"Disponível · Java/Spring • Angular • Android • iOS • QA",
-            "about.title":"Desenvolvedor de software — crio produtos <em style=\"color:var(--accent);font-style:normal\">web e móveis</em> de alta qualidade.",
-            "about.p1":"Especialista em <strong>APIs REST com Java/Spring Boot</strong>, <strong>SPAs com Angular/TypeScript</strong> e <strong>apps móveis</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabalho com <strong>arquitetura limpa (SOLID)</strong>, <strong>automação de testes</strong> (JUnit/Selenium) e CI com GitHub Actions.",
-            "about.p2":"Foco em software sustentável, escalável e mensurável: documentação clara, projeto de bancos (MySQL/SQLite), integrações de autenticação/arquivos/notificações e colaboração eficiente com GitFlow.",
-            "about.li1":"Projeto/consumo de APIs e modelagem de dados orientada ao domínio.",
-            "about.li2":"Rastreabilidade de qualidade com testes unitários e de integração.",
-            "about.li3":"Otimização de desempenho e UX caprichada.",
-            "about.cta.projects":"Ver projetos",
-            "about.cta.contact":"Vamos conversar",
-            "about.kpi1":"+5 projetos full-stack",
-            "about.kpi2":"+3 apps móveis",
-            "about.kpi3":"+2 pipelines CI/CD",
+                    "contact.title":"Contact",
+                    "contact.p1":"Want to build something together? Write me:",
+                    "footer.made":"Built with pure HTML/CSS and GitHub Pages"
+                },
+                pt: {
+                    "meta.title":"Erick Fiestas — Portfólio",
+                    "nav.tag":"Engenharia · Web/Mobile · QA",
+                    "nav.about":"Sobre mim",
+                    "nav.highlights":"Destaques",
+                    "nav.projects":"Projetos",
+                    "nav.contact":"Contato",
 
-            "high.title":"Projetos em destaque",
-            "high.blogapi.title":"📝 BlogApp — API REST",
-            "high.blogapi.meta":"Java · Spring Boot · Maven · JUnit",
-            "high.blogapi.desc":"API de publicações com autenticação, arquivos e testes. Arquitetura limpa e pronta para CI/CD.",
-            "high.blogfe.title":"⚡ BlogApp — Frontend (Angular)",
-            "high.blogfe.meta":"Angular 17 · TypeScript",
-            "high.blogfe.desc":"SPA que consome a API do BlogApp. Componentes reutilizáveis, rotas protegidas e pronto para Pages.",
-            "high.petlife.title":"🐾 PetLife (iOS)",
-            "high.petlife.meta":"UIKit · Core Data · Firebase",
-            "high.petlife.desc":"App nativa para gerenciar perfis, receitas e lembretes de pets. UI programática e persistência local + sync.",
+                    "about.badge":"Disponível · Java/Spring • Angular • Android • iOS • QA",
+                    "about.title":"Desenvolvedor de software — crio produtos <em style=\"color:var(--accent);font-style:normal\">web e móveis</em> de alta qualidade.",
+                    "about.p1":"Especialista em <strong>APIs REST com Java/Spring Boot</strong>, <strong>SPAs com Angular/TypeScript</strong> e <strong>apps móveis</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabalho com <strong>arquitetura limpa (SOLID)</strong>, <strong>automação de testes</strong> (JUnit/Selenium) e CI com GitHub Actions.",
+                    "about.p2":"Foco em software sustentável, escalável e mensurável: documentação clara, projeto de bancos (MySQL/SQLite), integrações de autenticação/arquivos/notificações e colaboração eficiente com GitFlow.",
+                    "about.li1":"Projeto/consumo de APIs e modelagem de dados orientada ao domínio.",
+                    "about.li2":"Rastreabilidade de qualidade com testes unitários e de integração.",
+                    "about.li3":"Otimização de desempenho e UX caprichada.",
+                    "about.cta.projects":"Ver projetos",
+                    "about.cta.contact":"Vamos conversar",
+                    "about.kpi1":"+5 projetos full-stack",
+                    "about.kpi2":"+3 apps móveis",
+                    "about.kpi3":"+2 pipelines CI/CD",
 
-            "btn.code":"Código",
-            "btn.readme":"README",
-            "btn.demo":"Demo",
+                    "high.title":"Projetos em destaque",
+                    "high.blogapi.title":"📝 BlogApp — API REST",
+                    "high.blogapi.meta":"Java · Spring Boot · Maven · JUnit",
+                    "high.blogapi.desc":"API de publicações com autenticação, arquivos e testes. Arquitetura limpa e pronta para CI/CD.",
+                    "high.blogfe.title":"⚡ BlogApp — Frontend (Angular)",
+                    "high.blogfe.meta":"Angular 17 · TypeScript",
+                    "high.blogfe.desc":"SPA que consome a API do BlogApp. Componentes reutilizáveis, rotas protegidas e pronto para Pages.",
+                    "high.petlife.title":"🐾 PetLife (iOS)",
+                    "high.petlife.meta":"UIKit · Core Data · Firebase",
+                    "high.petlife.desc":"App nativa para gerenciar perfis, receitas e lembretes de pets. UI programática e persistência local + sync.",
 
-            "all.title":"Todos os projetos",
-            "all.from":"Do GitHub (@291efx)",
-            "all.search_ph":"Buscar projeto…",
-            "all.lang_all":"Todos os idiomas",
-            "all.counter_one":"projeto visível",
-            "all.counter_many":"projetos visíveis",
-            "all.load_error":"Não foi possível carregar os repositórios.",
+                    "btn.code":"Código",
+                    "btn.readme":"README",
+                    "btn.demo":"Demo",
 
-            "contact.title":"Contato",
-            "contact.p1":"Vamos construir algo juntos? Escreva-me:",
-            "footer.made":"Feito com HTML/CSS puro e GitHub Pages"
-        }
-    };
+                    "all.title":"Todos os projetos",
+                    "all.from":"Do GitHub (@291efx)",
+                    "all.search_ph":"Buscar projeto…",
+                    "all.lang_all":"Todos os idiomas",
+                    "all.counter_one":"projeto visível",
+                    "all.counter_many":"projetos visíveis",
+                    "all.load_error":"Não foi possível carregar os repositórios.",
 
-    let currentLang = 'es';
-    function t(key){
-        const d = dict[currentLang] || dict.es;
-        return key.split('.').reduce((o,k)=>o&&o[k], d) || key;
-    }
-    function applyI18n(){
-        document.querySelectorAll('[data-i18n]').forEach(el=>{
-            el.innerHTML = t(el.getAttribute('data-i18n'));
-        });
-        document.querySelectorAll('[data-i18n-attr]').forEach(el=>{
-            const spec = el.getAttribute('data-i18n-attr');
-            spec.split(',').forEach(pair=>{
-                const [attr,key] = pair.split(':').map(s=>s.trim());
-                if(attr && key){ el.setAttribute(attr, t(key)); }
+                    "contact.title":"Contato",
+                    "contact.p1":"Vamos construir algo juntos? Escreva-me:",
+                    "footer.made":"Feito com HTML/CSS puro e GitHub Pages"
+                }
+            };
+
+            let currentLang = 'es';
+            function t(key){
+                const d = dict[currentLang] || dict.es;
+                return key.split('.').reduce((o,k)=>o&&o[k], d) || key;
+            }
+            function applyI18n(){
+                document.querySelectorAll('[data-i18n]').forEach(el=>{
+                    el.innerHTML = t(el.getAttribute('data-i18n'));
+                });
+                document.querySelectorAll('[data-i18n-attr]').forEach(el=>{
+                    const spec = el.getAttribute('data-i18n-attr'); // e.g. "placeholder:all.search_ph"
+                    if(!spec) return;
+                    spec.split(',').forEach(pair=>{
+                        const [attr,key] = pair.split(':').map(s=>s.trim());
+                        if(attr && key){ el.setAttribute(attr, t(key)); }
+                    });
+                });
+                document.title = t('meta.title');
+                document.querySelectorAll('.lang button')
+                    .forEach(b=>b.classList.toggle('active', b.dataset.lang===currentLang));
+                document.documentElement.setAttribute('lang', currentLang);
+            }
+            // Selector de idioma
+            document.querySelectorAll('.lang button').forEach(btn=>{
+                btn.addEventListener('click', ()=>{
+                    currentLang = btn.dataset.lang;
+                    localStorage.setItem('portfolio_lang', currentLang);
+                    applyI18n();
+                    renderRepos(); // refresca textos de botones en tarjetas
+                });
             });
-        });
-        document.title = t('meta.title');
-        document.querySelectorAll('.lang button')
-            .forEach(b=>b.classList.toggle('active', b.dataset.lang===currentLang));
-        document.documentElement.setAttribute('lang', currentLang);
-    }
-    document.querySelectorAll('.lang button').forEach(btn=>{
-        btn.addEventListener('click', ()=>{
-            currentLang = btn.dataset.lang;
-            localStorage.setItem('portfolio_lang', currentLang);
-            applyI18n();
-            renderRepos(); // actualiza textos de botones en tarjetas
-        });
-    });
-    (function initLang(){
-        const saved = localStorage.getItem('portfolio_lang');
-        if(saved && dict[saved]) currentLang = saved;
-        else {
-            const nav = (navigator.language||'es').slice(0,2);
-            if(dict[nav]) currentLang = nav;
+            // Idioma inicial (storage o navegador)
+            (function initLang(){
+                const saved = localStorage.getItem('portfolio_lang');
+                if(saved && dict[saved]) currentLang = saved;
+                else {
+                    const nav = (navigator.language||'es').slice(0,2);
+                    if(dict[nav]) currentLang = nav;
+                }
+                applyI18n();
+            })();
+
+            /* ====================================
+               2) REPOS DINÁMICOS (con i18n listo)
+               ==================================== */
+            const REPOS_URL = 'https://api.github.com/users/291efx/repos?per_page=100&sort=updated';
+            const list = document.getElementById('repo-list');
+            const countEl = document.getElementById('repo-count');
+            const langSelect = document.getElementById('languageFilter');
+            const searchInput = document.getElementById('search');
+            let ALL = [];
+
+            function repoCard(repo){
+                const date = new Date(repo.pushed_at).toLocaleDateString();
+                const lang = repo.language ? `<span class="tag">${repo.language}</span>` : '';
+                const archived = repo.archived ? '<span class="tag">archivado</span>' : '';
+                return `
+        <article class="card reveal">
+          <h3>${repo.name}</h3>
+          <div class="meta">${repo.language || 'Sin lenguaje principal'} · ⭐ ${repo.stargazers_count} · ↑ ${date}</div>
+          <p>${repo.description || 'Sin descripción.'}</p>
+          <div class="row">
+            <a class="btn secondary" href="${repo.html_url}" target="_blank" rel="noopener">${t('btn.code')}</a>
+            ${repo.homepage ? `<a class="btn" href="${repo.homepage}" target="_blank" rel="noopener">${t('btn.demo')}</a>` : ''}
+          </div>
+          <div class="tags">${lang}${archived}</div>
+        </article>`;
+            }
+
+            function renderRepos(){
+                const q = (searchInput?.value||'').toLowerCase();
+                const lang = langSelect?.value;
+                const filtered = ALL.filter(r=>{
+                    if(r.fork||r.private) return false;
+                    if(lang && r.language !== lang) return false;
+                    const text=(r.name+' '+(r.description||'')).toLowerCase();
+                    return !q || text.includes(q);
+                });
+                if (countEl) countEl.textContent = `${filtered.length} ${filtered.length===1?t('all.counter_one'):t('all.counter_many')}`;
+                if (list) {
+                    list.innerHTML = filtered.map(repoCard).join('');
+                    document.querySelectorAll('#repo-list .reveal').forEach(el=>io.observe(el));
+                }
+            }
+
+            function populateLanguages(repos){
+                if (!langSelect) return;
+                const langs = Array.from(new Set(repos.map(r=>r.language).filter(Boolean))).sort();
+                langSelect.innerHTML = `<option value="">${t('all.lang_all')}</option>`;
+                langs.forEach(l=>{ const opt=document.createElement('option'); opt.value=l; opt.textContent=l; langSelect.appendChild(opt); });
+            }
+
+            fetch(REPOS_URL, { headers: { 'Accept': 'application/vnd.github+json' }})
+                .then(r=>r.json())
+                .then(repos=>{
+                    ALL = (Array.isArray(repos)?repos:[]).sort((a,b)=>
+                        (b.stargazers_count-a.stargazers_count) || (new Date(b.pushed_at)-new Date(a.pushed_at))
+                    );
+                    populateLanguages(ALL); renderRepos();
+                })
+                .catch(()=>{ if(countEl) countEl.textContent=t('all.load_error'); });
+
+            langSelect?.addEventListener('change', renderRepos);
+            searchInput?.addEventListener('input', renderRepos);
+
+            /* ==========================
+               3) Partículas (decorativo)
+               ========================== */
+            const canvas = document.getElementById('fx');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let W,H,parts=[];
+                function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=360; }
+                function rnd(a,b){ return Math.random()*(b-a)+a }
+                function spawn(){
+                    parts = Array.from({length:90}).map(()=>({
+                        x:rnd(0,W), y:rnd(0,H), r:rnd(0.6,2.2), a:rnd(.15,.45),
+                        vx:rnd(-.15,.15), vy:rnd(.08,.35)
+                    }));
+                }
+                function tick(){
+                    ctx.clearRect(0,0,W,H);
+                    for(const p of parts){
+                        p.x+=p.vx; p.y+=p.vy;
+                        if(p.y>H || p.x<0 || p.x>W){ p.x=rnd(0,W); p.y=rnd(-20,0); }
+                        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+                        ctx.fillStyle=`rgba(138,180,247,${p.a})`; ctx.fill();
+                    }
+                    requestAnimationFrame(tick);
+                }
+                resize(); spawn(); tick(); window.addEventListener('resize',()=>{resize(); spawn();});
+            }
         }
-        applyI18n();
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", start, { once: true });
+        } else {
+            start();
+        }
     })();
-
-    // ====================================
-    // 2) REPOS DINÁMICOS (con i18n listo)
-    // ====================================
-    const REPOS_URL = 'https://api.github.com/users/291efx/repos?per_page=100&sort=updated';
-    const list = document.getElementById('repo-list');
-    const countEl = document.getElementById('repo-count');
-    const langSelect = document.getElementById('languageFilter');
-    const searchInput = document.getElementById('search');
-    let ALL = [];
-
-    function repoCard(repo){
-        const date = new Date(repo.pushed_at).toLocaleDateString();
-        const lang = repo.language ? `<span class="tag">${repo.language}</span>` : '';
-        const archived = repo.archived ? '<span class="tag">archivado</span>' : '';
-        return `
-      <article class="card reveal">
-        <h3>${repo.name}</h3>
-        <div class="meta">${repo.language || 'Sin lenguaje principal'} · ⭐ ${repo.stargazers_count} · ↑ ${date}</div>
-        <p>${repo.description || 'Sin descripción.'}</p>
-        <div class="row">
-          <a class="btn secondary" href="${repo.html_url}" target="_blank" rel="noopener">${t('btn.code')}</a>
-          ${repo.homepage ? `<a class="btn" href="${repo.homepage}" target="_blank" rel="noopener">${t('btn.demo')}</a>` : ''}
-        </div>
-        <div class="tags">${lang}${archived}</div>
-      </article>`;
-    }
-
-    function renderRepos(){
-        const q = (searchInput.value||'').toLowerCase();
-        const lang = langSelect.value;
-        const filtered = ALL.filter(r=>{
-            if(r.fork||r.private) return false;
-            if(lang && r.language !== lang) return false;
-            const text=(r.name+' '+(r.description||'')).toLowerCase();
-            return !q || text.includes(q);
-        });
-        countEl.textContent = `${filtered.length} ${filtered.length===1?t('all.counter_one'):t('all.counter_many')}`;
-        list.innerHTML = filtered.map(repoCard).join('');
-        document.querySelectorAll('#repo-list .reveal').forEach(el=>io.observe(el));
-    }
-
-    function populateLanguages(repos){
-        const langs = Array.from(new Set(repos.map(r=>r.language).filter(Boolean))).sort();
-        langSelect.innerHTML = `<option value="">${t('all.lang_all')}</option>`;
-        langs.forEach(l=>{ const opt=document.createElement('option'); opt.value=l; opt.textContent=l; langSelect.appendChild(opt); });
-    }
-
-    fetch(REPOS_URL, { headers: { 'Accept': 'application/vnd.github+json' }})
-        .then(r=>r.json())
-        .then(repos=>{
-            ALL = repos.sort((a,b)=>(b.stargazers_count-a.stargazers_count) || (new Date(b.pushed_at)-new Date(a.pushed_at)));
-            populateLanguages(ALL); renderRepos();
-        })
-        .catch(()=>{ countEl.textContent=t('all.load_error'); });
-
-    langSelect.addEventListener('change', renderRepos);
-    searchInput.addEventListener('input', renderRepos);
-
-    // ==========================
-    // 3) Partículas (decorativo)
-    // ==========================
-    const c = document.getElementById('fx'), ctx = c.getContext('2d');
-    let W,H,parts=[];
-    function resize(){ W=c.width=window.innerWidth; H=c.height=360; }
-    function rnd(a,b){ return Math.random()*(b-a)+a }
-    function spawn(){
-        parts = Array.from({length:90}).map(()=>({
-            x:rnd(0,W), y:rnd(0,H), r:rnd(0.6,2.2), a:rnd(.15,.45),
-            vx:rnd(-.15,.15), vy:rnd(.08,.35)
-        }));
-    }
-    function tick(){
-        ctx.clearRect(0,0,W,H);
-        for(const p of parts){
-            p.x+=p.vx; p.y+=p.vy;
-            if(p.y>H || p.x<0 || p.x>W){ p.x=rnd(0,W); p.y=rnd(-20,0); }
-            ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-            ctx.fillStyle=`rgba(138,180,247,${p.a})`; ctx.fill();
-        }
-        requestAnimationFrame(tick);
-    }
-    resize(); spawn(); tick(); window.addEventListener('resize',()=>{resize(); spawn();});
 </script>
+
 
 </body>
 </html>
