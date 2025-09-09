@@ -1,272 +1,332 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Portafolio — Erick Fiestas</title>
-  <meta name="description" content="Portafolio de Erick Fiestas — Desarrollo Web/Móvil, APIs con Java/Spring Boot, Angular, iOS y automatización QA."/>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    // Paleta rápida (opcional)
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            brand: { DEFAULT: '#4f46e5' } // indigo-600
-          }
-        }
-      }
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Erick Fiestas — Portafolio</title>
+  <meta name="description" content="Portafolio de Erick Fiestas — Desarrollo Web/Móvil, APIs con Java/Spring Boot, Angular, iOS y automatización QA." />
+  <style>
+    :root{
+      --bg1:#080c14; --bg2:#0a1220; --bg3:#0b1630;
+      --glass:#0f1522cc; --card:#0f1522; --text:#e8eef9; --muted:#9ab0d1;
+      --brand:#6aa9ff; --accent:#8ef0a5; --ring:rgba(106,169,255,.4);
+      --glow:0 0 20px rgba(138,180,247,.25), inset 0 0 40px rgba(90,169,255,.06);
     }
-  </script>
-</head>
-<body class="bg-gray-50 text-gray-900 selection:bg-indigo-600 selection:text-white">
+    *{box-sizing:border-box}
+    html,body{margin:0;padding:0;height:100%;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3));background-size:300% 300%;animation:bgmove 25s ease infinite}
+    @keyframes bgmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    a{color:var(--brand);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:1200px;margin:auto;padding:24px}
 
-  <!-- NAVBAR -->
-  <header class="bg-white/90 backdrop-blur shadow-sm fixed w-full top-0 z-50">
-    <nav class="max-w-6xl mx-auto flex justify-between items-center py-4 px-6">
-      <a href="#" class="text-xl md:text-2xl font-bold text-indigo-700 hover:text-indigo-600 transition">
-        Erick Fiestas
-      </a>
-      <ul class="hidden md:flex gap-6 font-medium">
-        <li><a href="#about" class="hover:text-indigo-600">Sobre mí</a></li>
-        <li><a href="#highlights" class="hover:text-indigo-600">Destacados</a></li>
-        <li><a href="#projects" class="hover:text-indigo-600">Proyectos</a></li>
-        <li><a href="#contact" class="hover:text-indigo-600">Contacto</a></li>
-        <li><a href="https://github.com/291efx" target="_blank" class="hover:text-indigo-600">GitHub</a></li>
-      </ul>
-      <a href="https://github.com/291efx" target="_blank" class="md:hidden inline-flex items-center gap-2 text-indigo-700">
-        <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor"><path d="M12 .5A11.5 11.5 0 0 0 .5 12.2c0 5.2 3.4 9.6 8 11.1.6.1.8-.3.8-.6v-2.2c-3.3.7-4-1.4-4-1.4-.5-1.2-1.2-1.6-1.2-1.6-1-.7.1-.7.1-.7 1.1.1 1.7 1.2 1.7 1.2 1 1.7 2.7 1.2 3.4.9.1-.7.4-1.2.7-1.5-2.7-.3-5.5-1.4-5.5-6.2 0-1.4.5-2.6 1.2-3.5-.1-.3-.5-1.7.1-3.4 0 0 1-.3 3.6 1.3a12.2 12.2 0 0 1 6.6 0c2.6-1.6 3.6-1.3 3.6-1.3.6 1.7.2 3.1.1 3.4.8.9 1.2 2.1 1.2 3.5 0 4.8-2.8 5.9-5.5 6.2.4.3.8 1 .8 2.1v3.1c0 .3.2.7.8.6a11.5 11.5 0 0 0 8-11.1A11.5 11.5 0 0 0 12 .5Z"/></svg>
-      </a>
-    </nav>
+    /* NAV */
+    header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(8,12,20,.7),rgba(8,12,20,.2));backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid #1a2742}
+    .nav{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 24px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent));padding:2px;box-shadow:var(--glow)}
+    .avatar>div{width:100%;height:100%;border-radius:50%;background:#0b0f17;display:grid;place-items:center;font-weight:800;letter-spacing:.3px}
+    .nav a{opacity:.9} .nav a:hover{opacity:1}
+
+    /* HERO */
+    .hero-wrap{position:relative;overflow:hidden}
+    canvas#fx{position:absolute;inset:0;z-index:0}
+    .hero{position:relative;z-index:1;display:grid;grid-template-columns:1.15fr .85fr;gap:28px;align-items:center;padding:64px 24px}
+    .chip{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(138,180,247,.12);border:1px solid rgba(138,180,247,.25);color:var(--muted);font-size:.85rem}
+    .hero h1{font-size:clamp(2rem,4vw,3rem);line-height:1.15;margin:10px 0 6px;text-shadow:0 2px 18px rgba(40,80,150,.28)}
+    .hero p{margin:0;color:var(--muted)}
+    .cta{display:flex;gap:12px;margin-top:18px}
+    .btn{background:var(--brand);color:#071119;border:none;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 8px 30px -12px var(--ring)}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.secondary{background:#0d1422;color:var(--text);border:1px solid #213150}
+    .glassy{background:var(--glass);border:1px solid #1b2740;border-radius:16px;padding:18px;box-shadow:var(--glow)}
+
+    /* SECTIONS */
+    section{margin-top:42px}
+    h2{font-size:1.7rem;margin:0 0 14px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--card);border:1px solid #1b2740;border-radius:16px;padding:16px;box-shadow:0 12px 34px -18px #0008, var(--glow);transform:translateY(0);transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease}
+    .card:hover{transform:translateY(-6px);border-color:#2a3b63;box-shadow:0 16px 48px -18px #000b, 0 0 0 1px rgba(90,169,255,.1), inset 0 0 0 1px rgba(90,169,255,.06)}
+    .card h3{margin:0 0 6px;font-size:1.1rem}
+    .meta{font-size:.9rem;color:var(--muted);margin-bottom:8px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .tag{font-size:.78rem;padding:4px 8px;border-radius:999px;background:#0c1a32;border:1px solid #203355;color:#b4c6e5}
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .control{padding:10px 12px;border-radius:10px;border:1px solid #213150;background:#0b1220;color:#e8eef9;outline:none}
+    .control:focus{box-shadow:0 0 0 3px rgba(90,169,255,.25)}
+
+    /* ABOUT */
+    .about{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+    .timeline{border-left:2px dashed #274069;padding-left:16px}
+
+    /* REVEAL ON SCROLL */
+    .reveal{opacity:0;transform:translateY(18px) scale(.98);filter:blur(4px)}
+    .reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0);transition:all .7s cubic-bezier(.2,.8,.2,1)}
+
+    footer{margin:56px 0 16px;color:var(--muted);font-size:.9rem}
+
+    @media (max-width:1000px){ .hero{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr}.about{grid-template-columns:1fr} }
+    @media (max-width:640px){ .grid{grid-template-columns:1fr} .nav .row{display:none} }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <header>
+    <div class="nav container">
+      <div class="brand">
+        <div class="avatar"><div>EF</div></div>
+        <div>
+          <div class="chip">Ingeniería · Web/Móvil · QA</div>
+          <div style="font-weight:800;margin-top:6px">Erick Fiestas</div>
+        </div>
+      </div>
+      <nav class="row">
+        <a href="#highlights">Destacados</a>
+        <a href="#projects">Proyectos</a>
+        <a href="#about">Sobre mí</a>
+        <a href="#contacto">Contacto</a>
+        <a href="https://github.com/291efx" target="_blank" rel="noopener">GitHub ↗</a>
+      </nav>
+    </div>
   </header>
 
-  <!-- HERO -->
-  <section class="pt-28 md:pt-32 pb-16 bg-gradient-to-r from-indigo-600 to-purple-600 text-white">
-    <div class="max-w-6xl mx-auto px-6 text-center">
-      <h1 class="text-4xl md:text-6xl font-extrabold leading-tight">
-        Creo productos <span class="underline decoration-yellow-300 decoration-4">web y móviles</span> con foco en calidad
-      </h1>
-      <p class="mt-5 text-lg md:text-xl text-indigo-100 max-w-3xl mx-auto">
-        Desarrollador de software (egresado) con experiencia en 
-        <span class="font-semibold">Java/Spring Boot</span>, 
-        <span class="font-semibold">Angular</span>, 
-        <span class="font-semibold">Android/iOS</span> y 
-        <span class="font-semibold">automatización de pruebas</span>. 
-        Me apasiona construir soluciones escalables, limpias y medibles.
-      </p>
-      <div class="mt-8 flex flex-wrap justify-center gap-3">
-        <span class="px-3 py-1 rounded-full bg-white/10 border border-white/20">Java • Spring Boot</span>
-        <span class="px-3 py-1 rounded-full bg-white/10 border border-white/20">Angular • TypeScript</span>
-        <span class="px-3 py-1 rounded-full bg-white/10 border border-white/20">Android • Kotlin</span>
-        <span class="px-3 py-1 rounded-full bg-white/10 border border-white/20">iOS • UIKit/Core Data</span>
-        <span class="px-3 py-1 rounded-full bg-white/10 border border-white/20">MySQL • SQLite</span>
-        <span class="px-3 py-1 rounded-full bg-white/10 border border-white/20">JUnit • Selenium</span>
-      </div>
-      <div class="mt-10 flex justify-center gap-4">
-        <a href="#projects" class="px-6 py-3 bg-white text-indigo-700 font-semibold rounded-xl shadow hover:bg-indigo-50 transition">Ver proyectos</a>
-        <a href="#contact" class="px-6 py-3 bg-indigo-950/30 border border-white/40 font-semibold rounded-xl hover:bg-indigo-900/40 transition">Contactar</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- SOBRE MI -->
-  <section id="about" class="max-w-6xl mx-auto px-6 py-16">
-    <h2 class="text-3xl md:text-4xl font-extrabold text-center mb-10">Sobre mí</h2>
-    <div class="grid md:grid-cols-2 gap-8">
-      <div class="bg-white rounded-2xl shadow-sm p-6">
-        <p class="text-lg leading-relaxed">
-          Soy <strong>Erick Fiestas</strong>, desarrollador de software egresado de Computación e Informática. 
-          Me especializo en construir <strong>APIs REST con Java/Spring Boot</strong>, 
-          <strong>SPAs con Angular</strong> y <strong>aplicaciones móviles</strong> para Android (Kotlin) e iOS (UIKit/Core Data), 
-          aplicando <em>buenas prácticas</em> de arquitectura, control de versiones y testing.
-        </p>
-        <ul class="mt-5 space-y-2 text-gray-700">
-          <li>• Diseño de bases de datos (MySQL/SQLite) y consumo/creación de APIs.</li>
-          <li>• Automatización de pruebas con JUnit/Selenium y CI en GitHub Actions.</li>
-          <li>• Enfoque en código limpio (SOLID), documentación y mantenibilidad.</li>
-          <li>• Comunicación clara y trabajo colaborativo con GitFlow.</li>
-        </ul>
-        <p class="mt-5">
-          Busco aportar en equipos donde la <strong>calidad</strong>, la <strong>iteración</strong> y el 
-          <strong>aprendizaje continuo</strong> sean pilares. 🚀
-        </p>
-      </div>
-      <div class="bg-white rounded-2xl shadow-sm p-6">
-        <h3 class="text-xl font-bold mb-4">Stack principal</h3>
-        <div class="flex flex-wrap gap-2">
-          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full">Java</span>
-          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full">Spring Boot</span>
-          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full">Angular</span>
-          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full">TypeScript</span>
-          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full">Android (Kotlin)</span>
-          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full">iOS (UIKit/Core Data)</span>
-          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full">MySQL / SQLite</span>
-          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full">JUnit • Selenium</span>
-          <span class="px-3 py-1 bg-indigo-50 text-indigo-700 rounded-full">GitHub Actions</span>
+  <!-- HERO con partículas -->
+  <div class="hero-wrap">
+    <canvas id="fx" aria-hidden="true"></canvas>
+    <section class="hero container">
+      <div class="reveal">
+        <span class="chip">Disponible · Java/Spring • Angular • Android • iOS • QA</span>
+        <h1>Creo productos <em style="color:var(--accent);font-style:normal">web y móviles</em> con foco en calidad, rendimiento y mantenibilidad.</h1>
+        <p>Experiencia en <strong>Java/Spring Boot</strong>, <strong>Angular/TypeScript</strong>, <strong>Android (Kotlin)</strong>, 
+           <strong>iOS (UIKit/Core Data)</strong>, <strong>MySQL/SQLite</strong> y <strong>automatización QA</strong> con JUnit/Selenium.</p>
+        <div class="cta">
+          <a class="btn" href="#projects">Ver proyectos</a>
+          <a class="btn secondary" href="#contacto">Hablemos</a>
         </div>
-
-        <h3 class="text-xl font-bold mt-8 mb-3">Logros destacados</h3>
-        <ul class="space-y-2 text-gray-700">
-          <li>• App iOS con <strong>Core Data + Firebase</strong> para gestión de mascotas (PetLife).</li>
-          <li>• <strong>API REST</strong> de blog con autenticación y pruebas unitarias (BlogApp).</li>
-          <li>• Frontend en <strong>Angular 17</strong> para SPA de publicaciones (BlogApp_Frontend).</li>
-        </ul>
       </div>
-    </div>
-  </section>
-
-  <!-- DESTACADOS CURADOS -->
-  <section id="highlights" class="bg-gray-100 py-16">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex items-end justify-between mb-8">
-        <h2 class="text-3xl md:text-4xl font-extrabold">Proyectos destacados</h2>
-        <a href="https://github.com/291efx?tab=repositories" target="_blank" class="text-indigo-700 hover:underline">Ver todos en GitHub</a>
+      <div class="glassy reveal">
+        <h3>Último proyecto destacado</h3>
+        <div class="meta">2025 · iOS · Core Data + Firebase</div>
+        <p><strong>PetLife</strong> — Gestión de mascotas: perfiles, recetas, recordatorios y sync local/nube. UI programática (sin Storyboard).</p>
+        <div class="tags">
+          <span class="tag">Swift</span><span class="tag">Core Data</span><span class="tag">Firebase</span><span class="tag">UIKit</span>
+        </div>
       </div>
-      <div class="grid md:grid-cols-3 gap-6">
+    </section>
+  </div>
 
-        <!-- PetLife -->
-        <article class="bg-white rounded-2xl shadow hover:shadow-lg transition p-6">
-          <h3 class="text-xl font-bold mb-1">🐾 PetLife (iOS)</h3>
-          <p class="text-sm text-gray-600 mb-3">UIKit • Core Data • Firebase</p>
-          <p class="mb-4">App nativa para gestionar perfiles, recetas y recordatorios de mascotas. UI programática (sin Storyboard) y persistencia local.</p>
-          <div class="flex gap-3">
-            <a class="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 font-semibold" href="https://github.com/291efx/PetLife" target="_blank">Código</a>
-            <a class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 font-semibold" href="https://github.com/291efx/PetLife" target="_blank">README</a>
-          </div>
-        </article>
-
-        <!-- BlogApp (API) -->
-        <article class="bg-white rounded-2xl shadow hover:shadow-lg transition p-6">
-          <h3 class="text-xl font-bold mb-1">📝 BlogApp (API REST)</h3>
-          <p class="text-sm text-gray-600 mb-3">Java • Spring Boot • Maven • JUnit</p>
-          <p class="mb-4">API para publicaciones con autenticación, manejo de archivos y pruebas. Arquitectura clara y preparada para despliegue/CI.</p>
-          <div class="flex gap-3">
-            <a class="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 font-semibold" href="https://github.com/291efx/BlogApp" target="_blank">Código</a>
-            <a class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 font-semibold" href="https://github.com/291efx/BlogApp" target="_blank">README</a>
-          </div>
-        </article>
-
-        <!-- BlogApp Frontend -->
-        <article class="bg-white rounded-2xl shadow hover:shadow-lg transition p-6">
-          <h3 class="text-xl font-bold mb-1">⚡ BlogApp Frontend (Angular)</h3>
-          <p class="text-sm text-gray-600 mb-3">Angular 17 • TypeScript</p>
-          <p class="mb-4">SPA para consumir la API de BlogApp. Componentes reutilizables, rutas protegidas y base para hosting en GitHub Pages.</p>
-          <div class="flex gap-3">
-            <a class="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 font-semibold" href="https://github.com/291efx/BlogApp_Frontend" target="_blank">Código</a>
-            <a class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 font-semibold" href="https://github.com/291efx/BlogApp_Frontend" target="_blank">README</a>
-          </div>
-        </article>
-
-      </div>
+  <!-- DESTACADOS -->
+  <section id="highlights" class="container">
+    <h2 class="reveal">Proyectos destacados</h2>
+    <div class="grid">
+      <article class="card reveal">
+        <h3>🚗 Sistema de Gestión de Autos</h3>
+        <div class="meta">Java · Spring Boot · Hibernate · MySQL</div>
+        <p>CRUD completo con capas claras (controller/service/repository), validaciones y consultas óptimas.</p>
+        <div class="row">
+          <a class="btn secondary" href="#" target="_blank" rel="noopener">Código</a>
+        </div>
+        <div class="tags"><span class="tag">REST</span><span class="tag">JPA</span><span class="tag">MySQL</span></div>
+      </article>
+      <article class="card reveal">
+        <h3>📊 Ventas con Hilos (REST API)</h3>
+        <div class="meta">Spring Boot · Threads · MySQL</div>
+        <p>Servicio REST que procesa ventas con hilos y handlers; pruebas y documentación de endpoints.</p>
+        <div class="row">
+          <a class="btn secondary" href="#" target="_blank" rel="noopener">Código</a>
+        </div>
+        <div class="tags"><span class="tag">Concurrencia</span><span class="tag">REST</span></div>
+      </article>
+      <article class="card reveal">
+        <h3>📝 BlogApp (API REST)</h3>
+        <div class="meta">Java · Spring Boot · Maven · JUnit</div>
+        <p>API de publicaciones con auth, manejo de archivos y pruebas. Preparada para CI/CD.</p>
+        <div class="row">
+          <a class="btn secondary" href="https://github.com/291efx/BlogApp" target="_blank" rel="noopener">Código</a>
+          <a class="btn" href="https://github.com/291efx/BlogApp" target="_blank" rel="noopener">README</a>
+        </div>
+        <div class="tags"><span class="tag">Spring</span><span class="tag">JUnit5</span><span class="tag">REST</span></div>
+      </article>
+      <article class="card reveal">
+        <h3>⚡ BlogApp Frontend (Angular)</h3>
+        <div class="meta">Angular 17 · TypeScript</div>
+        <p>SPA para consumir la API de BlogApp: componentes reutilizables, rutas protegidas y base para Pages.</p>
+        <div class="row">
+          <a class="btn secondary" href="https://github.com/291efx/BlogApp_Frontend" target="_blank" rel="noopener">Código</a>
+          <a class="btn" href="https://github.com/291efx/BlogApp_Frontend" target="_blank" rel="noopener">README</a>
+        </div>
+        <div class="tags"><span class="tag">Angular</span><span class="tag">SPA</span></div>
+      </article>
+      <article class="card reveal">
+        <h3>📱 Android — Lo Más Vendido</h3>
+        <div class="meta">Android · Kotlin/Java</div>
+        <p>Listado de productos con RecyclerView y carrito; arquitectura simple y navegación clara.</p>
+        <div class="row">
+          <a class="btn secondary" href="#" target="_blank" rel="noopener">Código</a>
+        </div>
+        <div class="tags"><span class="tag">Android</span><span class="tag">UI</span></div>
+      </article>
+      <article class="card reveal">
+        <h3>💾 CRUD SQLite — Almacenes</h3>
+        <div class="meta">Android · SQLite</div>
+        <p>Gestión de productos en DB local <em>Almacenes</em> con validaciones y UX simple.</p>
+        <div class="row">
+          <a class="btn secondary" href="#" target="_blank" rel="noopener">Código</a>
+        </div>
+        <div class="tags"><span class="tag">SQLite</span><span class="tag">Mobile</span></div>
+      </article>
     </div>
   </section>
 
   <!-- TODOS LOS PROYECTOS (DINÁMICO) -->
-  <section id="projects" class="py-16 bg-white">
-    <div class="max-w-6xl mx-auto px-6">
-      <div class="flex items-center justify-between gap-4 flex-wrap mb-6">
-        <h2 class="text-3xl md:text-4xl font-extrabold">Todos los proyectos</h2>
-        <div class="flex gap-3">
-          <input id="search" class="px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Buscar proyecto…"/>
-          <select id="languageFilter" class="px-3 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+  <section id="projects" class="container">
+    <h2 class="reveal">Todos los proyectos</h2>
+    <div class="glassy reveal" style="margin-bottom:16px">
+      <div class="toolbar">
+        <div class="row" style="gap:8px">
+          <span class="chip">Desde GitHub (@291efx)</span>
+          <span class="chip" id="repo-count">Cargando…</span>
+        </div>
+        <div class="row">
+          <input id="search" class="control" placeholder="Buscar proyecto…" />
+          <select id="languageFilter" class="control">
             <option value="">Todos los lenguajes</option>
           </select>
         </div>
       </div>
+    </div>
+    <div class="grid" id="repo-list"></div>
+  </section>
 
-      <p id="repo-counter" class="text-sm text-gray-600 mb-4">Cargando repos…</p>
-      <div id="repo-list" class="grid md:grid-cols-3 gap-6"></div>
+  <!-- SOBRE MÍ -->
+  <section id="about" class="container about">
+    <div class="card reveal">
+      <h2>Sobre mí</h2>
+      <p>Soy <strong>Erick Fiestas</strong>, desarrollador de software egresado de Computación e Informática. Me especializo en
+        <strong>APIs REST con Java/Spring Boot</strong>, <strong>SPAs con Angular/TypeScript</strong> y
+        <strong>apps móviles</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabajo con arquitectura limpia (SOLID), control de versiones y
+        <strong>testing automatizado</strong> (JUnit/Selenium). Me motivan los retos donde la <strong>calidad</strong>,
+        el <strong>rendimiento</strong> y el <strong>aprendizaje continuo</strong> son clave.</p>
+      <ul>
+        <li>Diseño de DB (MySQL/SQLite), consumo/creación de APIs y documentación.</li>
+        <li>CI/CD con GitHub Actions; monitoreo básico y buenas prácticas de logging.</li>
+        <li>Integración de autenticación, manejo de archivos y notificaciones.</li>
+        <li>Trabajo colaborativo con GitFlow y comunicación clara con el equipo.</li>
+      </ul>
+    </div>
+    <div class="card timeline reveal">
+      <h2>Timeline</h2>
+      <div class="item"><strong>2025</strong> — PetLife iOS (Core Data + Firebase).</div>
+      <div class="item"><strong>2024</strong> — BlogApp API + Frontend Angular 17.</div>
+      <div class="item"><strong>2023</strong> — Web responsive y primeras apps Android.</div>
     </div>
   </section>
 
   <!-- CONTACTO -->
-  <section id="contact" class="bg-gray-100 py-16">
-    <div class="max-w-4xl mx-auto px-6 text-center">
-      <h2 class="text-3xl md:text-4xl font-extrabold mb-4">¿Construimos algo juntos?</h2>
-      <p class="text-gray-700 max-w-2xl mx-auto">
-        Abierto a oportunidades como <strong>Desarrollador Java/Angular</strong>, 
-        <strong>Desarrollador Mobile</strong> o <strong>QA Automation</strong>. 
-        Escríbeme y conversemos sobre tu idea o proyecto.
-      </p>
-      <div class="mt-8 flex justify-center gap-4">
-        <a href="mailto:erickfiestas@gmail.com" class="px-6 py-3 bg-indigo-600 text-white font-semibold rounded-xl shadow hover:bg-indigo-700 transition">Enviar correo</a>
-        <a href="https://github.com/291efx" target="_blank" class="px-6 py-3 bg-white border border-gray-300 rounded-xl font-semibold hover:bg-gray-50 transition">Ver GitHub</a>
-      </div>
+  <section id="contacto" class="container">
+    <h2 class="reveal">Contacto</h2>
+    <div class="glassy reveal">
+      <p>¿Construimos algo juntos? Escríbeme:</p>
+      <ul>
+        <li>Email: <a href="mailto:erickfiestas@gmail.com">erickfiestas@gmail.com</a></li>
+        <li>GitHub: <a href="https://github.com/291efx" target="_blank" rel="noopener">@291efx</a></li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">linkedin/in/your-handle</a></li>
+      </ul>
     </div>
   </section>
 
-  <!-- FOOTER -->
-  <footer class="bg-gray-900 text-gray-400 text-center py-6">
-    <p>© <span id="year"></span> Erick Fiestas · Hecho con Tailwind y GitHub Pages</p>
-  </footer>
+  <footer class="container">© <span id="y"></span> Erick Fiestas · Hecho con HTML/CSS puro y GitHub Pages</footer>
 
-  <!-- SCRIPT: Año + Carga dinámica de repos -->
   <script>
-    document.getElementById('year').textContent = new Date().getFullYear();
+    // Año
+    document.getElementById('y').textContent = new Date().getFullYear();
 
-    const GH_USER = '291efx';
-    const REPOS_URL = `https://api.github.com/users/${GH_USER}/repos?per_page=100&sort=updated`;
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
+    // Partículas sutiles
+    const c = document.getElementById('fx'), ctx = c.getContext('2d');
+    let W,H,parts=[];
+    function resize(){ W=c.width=window.innerWidth; H=c.height=300; }
+    function rnd(a,b){ return Math.random()*(b-a)+a }
+    function spawn(){
+      parts = Array.from({length:80}).map(()=>({
+        x:rnd(0,W), y:rnd(0,H), r:rnd(0.6,2.0), a:rnd(.15,.45),
+        vx:rnd(-.15,.15), vy:rnd(.08,.35)
+      }));
+    }
+    function tick(){
+      ctx.clearRect(0,0,W,H);
+      for(const p of parts){
+        p.x+=p.vx; p.y+=p.vy;
+        if(p.y>H || p.x<0 || p.x>W){ p.x=rnd(0,W); p.y=rnd(-20,0); }
+        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+        ctx.fillStyle=`rgba(138,180,247,${p.a})`; ctx.fill();
+      }
+      requestAnimationFrame(tick);
+    }
+    resize(); spawn(); tick(); window.addEventListener('resize',()=>{resize(); spawn();});
+
+    // === Repos dinámicos @291efx ===
+    const REPOS_URL = 'https://api.github.com/users/291efx/repos?per_page=100&sort=updated';
     const list = document.getElementById('repo-list');
-    const counter = document.getElementById('repo-counter');
+    const countEl = document.getElementById('repo-count');
     const langSelect = document.getElementById('languageFilter');
     const searchInput = document.getElementById('search');
-
     let ALL = [];
 
-    function card(repo) {
+    function card(repo){
       const date = new Date(repo.pushed_at).toLocaleDateString();
-      const lang = repo.language ? `<span class="px-2 py-1 text-xs bg-indigo-50 text-indigo-700 rounded-full">${repo.language}</span>` : '';
+      const lang = repo.language ? `<span class="tag">${repo.language}</span>` : '';
+      const archived = repo.archived ? '<span class="tag">archivado</span>' : '';
       return `
-        <article class="bg-white rounded-2xl shadow-sm border border-gray-100 hover:shadow-md transition p-6">
-          <h3 class="text-lg font-bold mb-1">${repo.name}</h3>
-          <p class="text-xs text-gray-500 mb-3">⭐ ${repo.stargazers_count} · Último push: ${date}</p>
-          <p class="text-gray-700 mb-4">${repo.description ?? 'Sin descripción.'}</p>
-          <div class="flex items-center gap-2 mb-4">${lang}${repo.archived ? '<span class="px-2 py-1 text-xs bg-gray-100 rounded-full">archivado</span>':''}</div>
-          <div class="flex gap-3">
-            <a class="px-4 py-2 rounded-lg bg-gray-100 hover:bg-gray-200 font-semibold" href="${repo.html_url}" target="_blank" rel="noopener">Código</a>
-            ${repo.homepage ? `<a class="px-4 py-2 rounded-lg bg-indigo-600 text-white hover:bg-indigo-700 font-semibold" href="${repo.homepage}" target="_blank" rel="noopener">Demo</a>` : ''}
+        <article class="card reveal">
+          <h3>${repo.name}</h3>
+          <div class="meta">${repo.language || 'Sin lenguaje principal'} · ⭐ ${repo.stargazers_count} · ↑ ${date}</div>
+          <p>${repo.description || 'Sin descripción.'}</p>
+          <div class="row">
+            <a class="btn secondary" href="${repo.html_url}" target="_blank" rel="noopener">Código</a>
+            ${repo.homepage ? `<a class="btn" href="${repo.homepage}" target="_blank" rel="noopener">Demo</a>` : ''}
           </div>
-        </article>
-      `;
+          <div class="tags">${lang}${archived}</div>
+        </article>`;
     }
 
-    function render() {
-      const q = (searchInput.value || '').toLowerCase();
+    function render(){
+      const q = (searchInput.value||'').toLowerCase();
       const lang = langSelect.value;
-      const filtered = ALL.filter(r => {
-        if (r.fork || r.private) return false;
-        if (lang && r.language !== lang) return false;
-        const text = (r.name + ' ' + (r.description || '')).toLowerCase();
+      const filtered = ALL.filter(r=>{
+        if(r.fork||r.private) return false;
+        if(lang && r.language !== lang) return false;
+        const text=(r.name+' '+(r.description||'')).toLowerCase();
         return !q || text.includes(q);
       });
-      counter.textContent = `${filtered.length} proyecto${filtered.length===1?'':'s'} visibles`;
+      countEl.textContent = `${filtered.length} proyecto${filtered.length===1?'':'s'} visibles`;
       list.innerHTML = filtered.map(card).join('');
+      // activar reveal para nuevas tarjetas
+      document.querySelectorAll('#repo-list .reveal').forEach(el=>io.observe(el));
     }
 
-    function populateLanguages(repos) {
-      const langs = Array.from(new Set(repos.map(r => r.language).filter(Boolean))).sort();
-      langs.forEach(l => {
-        const opt = document.createElement('option');
-        opt.value = l; opt.textContent = l;
-        langSelect.appendChild(opt);
-      });
+    function populateLanguages(repos){
+      const langs = Array.from(new Set(repos.map(r=>r.language).filter(Boolean))).sort();
+      langs.forEach(l=>{ const opt=document.createElement('option'); opt.value=l; opt.textContent=l; langSelect.appendChild(opt); });
     }
 
     fetch(REPOS_URL, { headers: { 'Accept': 'application/vnd.github+json' }})
-      .then(r => r.json())
-      .then(repos => {
-        ALL = repos.sort((a,b) =>
-          (b.stargazers_count - a.stargazers_count) ||
-          (new Date(b.pushed_at) - new Date(a.pushed_at))
-        );
-        populateLanguages(ALL);
-        render();
+      .then(r=>r.json())
+      .then(repos=>{
+        ALL = repos.sort((a,b)=>(b.stargazers_count-a.stargazers_count) || (new Date(b.pushed_at)-new Date(a.pushed_at)));
+        populateLanguages(ALL); render();
       })
-      .catch(() => { counter.textContent = 'No se pudieron cargar los repositorios.' });
+      .catch(()=>{ countEl.textContent='No se pudieron cargar los repositorios.' });
 
     langSelect.addEventListener('change', render);
     searchInput.addEventListener('input', render);
   </script>
 </body>
 </html>
+
