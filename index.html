@@ -1,207 +1,331 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Erick Fiestas — Portafolio</title>
-  <meta name="description" content="Portafolio de Erick Fiestas: desarrollo de APIs REST con Java/Spring Boot, SPAs con Angular/TypeScript y apps móviles Android/iOS." />
+  <meta name="description" content="Portafolio de Erick Fiestas — Desarrollo Web/Móvil, APIs con Java/Spring Boot, Angular, iOS y QA." />
   <style>
     :root{
-      --bg:#0b1020;
-      --bg-soft:#0f1630;
-      --card:#0f1a3a;
-      --muted:#9fb0d0;
-      --text:#eaf2ff;
-      --primary:#64b5ff;
-      --accent:#8de6ff;
-      --ring:rgba(100,181,255,.35);
-      --shadow:0 10px 30px rgba(0,0,0,.45);
-      --radius:18px;
+      --bg1:#080c14;--bg2:#0a1220;--bg3:#0b1630;
+      --glass:#0f1522cc;--card:#0f1522;
+      --text:#e8eef9;--muted:#9ab0d1;
+      --brand:#6aa9ff;--accent:#8ef0a5;
+      --ring:rgba(106,169,255,.4);
+      --glow:0 0 20px rgba(138,180,247,.25), inset 0 0 40px rgba(90,169,255,.06);
     }
     *{box-sizing:border-box}
-    html,body{margin:0;padding:0;background:var(--bg);color:var(--text);font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue","Noto Sans",Arial,"Apple Color Emoji","Segoe UI Emoji";}
-    a{color:var(--primary);text-decoration:none}
-    img{max-width:100%;display:block}
-    .container{max-width:1100px;margin:0 auto;padding:20px}
-
-    /* NAV */
-    .nav{position:sticky;top:0;background:linear-gradient(180deg,rgba(11,16,32,.9),rgba(11,16,32,.6));backdrop-filter:blur(8px);z-index:50;border-bottom:1px solid rgba(255,255,255,.06)}
-    .nav .wrap{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:10px 20px}
-    .brand{font-weight:800;letter-spacing:.3px}
-    .brand span{color:var(--primary)}
-    .links{display:flex;gap:18px;flex-wrap:wrap}
-    .links a{padding:.45rem .8rem;border-radius:999px;background:transparent;border:1px solid rgba(255,255,255,.1);color:var(--muted)}
-    .links a:hover{border-color:var(--primary);color:var(--text);box-shadow:0 0 0 4px var(--ring)}
+    html,body{margin:0;padding:0;height:100%;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3));background-size:300% 300%;animation:bgmove 25s ease infinite}
+    @keyframes bgmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+    a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
+    .container{max-width:1200px;margin:auto;padding:24px}
+    header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(8,12,20,.7),rgba(8,12,20,.2));backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid #1a2742}
+    .nav{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 24px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent));padding:2px;box-shadow:var(--glow)}
+    .avatar>div{width:100%;height:100%;border-radius:50%;background:#0b0f17;display:grid;place-items:center;font-weight:800;letter-spacing:.3px}
+    .nav a{opacity:.9}.nav a:hover{opacity:1}
 
     /* HERO */
-    .hero{display:grid;grid-template-columns:120px 1fr;gap:18px;align-items:center;padding:28px 0}
-    .avatar{width:120px;height:120px;border-radius:999px;border:3px solid var(--accent);overflow:hidden;box-shadow:var(--shadow)}
-    .headings{display:flex;flex-direction:column;gap:8px}
-    .name{font-size:clamp(28px,6vw,48px);line-height:1.05;margin:0;font-weight:900;letter-spacing:.4px;color:var(--accent);text-shadow:0 2px 18px rgba(141,230,255,.25)}
-    .title{margin:0;color:#cfe3ff;font-weight:700;font-size:clamp(15px,3.1vw,20px)}
-    .kicker{margin:0;color:var(--muted);font-size:.95rem}
+    .hero{position:relative;overflow:hidden}
+    canvas#fx{position:absolute;inset:0;z-index:0}
+    .hero-inner{position:relative;z-index:1;display:grid;gap:22px;padding:52px 24px}
 
-    /* SECTION */
-    section{margin:26px 0}
-    section h2{margin:0 0 14px;font-size:clamp(20px,3.6vw,26px);color:var(--primary);text-align:center}
-    .card{background:linear-gradient(180deg,var(--bg-soft),var(--card));border:1px solid rgba(255,255,255,.06);border-radius:var(--radius);box-shadow:var(--shadow)}
-    .about{padding:18px 20px;line-height:1.65;color:#d8e6ff;text-align:justify}
+    /* Fila superior: foto izquierda, placa derecha */
+    .hero-top{display:grid;grid-template-columns:340px 1fr;gap:24px;align-items:center}
+    .photo-wrap{display:grid;place-items:center;perspective:900px}
+    .photo-orbit{position:relative;width:320px;height:320px;transform-style:preserve-3d;transition:transform .2s ease}
+    .ring{position:absolute;inset:-12px;border-radius:50%;background:conic-gradient(from 0deg, rgba(106,169,255,0), rgba(106,169,255,.95), rgba(142,240,165,.9), rgba(106,169,255,0));filter:blur(8px);animation:spin 9s linear infinite}
+    .pulse{position:absolute;inset:-18px;border-radius:50%;border:2px solid rgba(106,169,255,.35);box-shadow:0 0 32px rgba(106,169,255,.25);animation:pulse 2.7s ease-in-out infinite}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @keyframes pulse{0%,100%{transform:scale(1);opacity:.7}50%{transform:scale(1.03);opacity:1}}
+    .photo{position:absolute;inset:0;margin:auto;width:100%;height:100%;border-radius:50%;background:#0b0f17 url('assets/erick.jpg') center/cover no-repeat;border:2px solid #213150;box-shadow:0 14px 46px -14px #000a, var(--glow);animation:float 6s ease-in-out infinite}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    .photo-fallback{position:absolute;inset:0;display:grid;place-items:center;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent));font-weight:900;color:#06101c}
 
-    /* PROJECTS */
-    .grid{display:grid;gap:16px}
-    @media(min-width:640px){.grid{grid-template-columns:repeat(2,1fr)}}
-    @media(min-width:980px){.grid{grid-template-columns:repeat(3,1fr)}}
-    .proj{padding:16px;display:flex;flex-direction:column;gap:10px}
-    .icon{font-size:22px;filter:drop-shadow(0 6px 14px rgba(141,230,255,.35))}
-    .ptitle{margin:0;font-weight:800}
-    .pmeta{margin:0;color:var(--muted);font-size:.9rem}
-    .pdesc{margin:2px 0 0;color:#cfe3ff;font-size:.95rem;line-height:1.55}
-    .prow{display:flex;justify-content:space-between;align-items:center;gap:10px}
-    .btn{display:inline-flex;align-items:center;gap:8px;padding:.5rem .8rem;border-radius:12px;border:1px solid rgba(255,255,255,.1)}
-    .btn:hover{border-color:var(--primary);box-shadow:0 0 0 4px var(--ring)}
-
-    /* TECHS */
-    .chips{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;padding:14px}
-    .chip{padding:.5rem .9rem;border-radius:999px;border:1px solid rgba(100,181,255,.35);background:rgba(100,181,255,.06);color:#dff1ff;font-weight:600}
-    .chip.small{font-weight:500;opacity:.9}
-
-    /* CONTACT */
-    .contact{padding:18px;text-align:center}
-    .mail{display:inline-flex;align-items:center;gap:10px;padding:.7rem 1rem;border-radius:999px;background:rgba(100,181,255,.08);border:1px solid rgba(100,181,255,.35)}
-    .mail:hover{box-shadow:0 0 0 6px var(--ring)}
-
-    /* MOBILE TWEAKS */
-    @media(max-width:440px){
-      .hero{grid-template-columns:88px 1fr}
-      .avatar{width:88px;height:88px}
+    .id-plate{
+      background:rgba(15,21,34,.72); backdrop-filter:blur(8px);
+      border:1px solid #1e2d46; border-radius:14px; padding:18px 20px;
+      box-shadow:0 15px 36px -18px #000c, inset 0 0 0 1px rgba(90,169,255,.05);
+      display:flex; align-items:center; gap:14px; width:100%;
     }
+    .id-badge{flex:0 0 46px;height:46px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--accent));color:#06111d;font-weight:900}
+    .id-text b{display:block;font-size:1.25rem;letter-spacing:.2px}
+    .id-text span{display:block;color:var(--muted);font-size:.96rem}
+
+    /* Fila inferior: panel "Sobre mí" a ancho completo */
+    .about-panel{background:var(--glass);border:1px solid #1b2740;border-radius:18px;padding:22px;box-shadow:var(--glow)}
+    .chip{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(138,180,247,.12);border:1px solid rgba(138,180,247,.25);color:var(--muted);font-size:.85rem}
+    .about-panel h1{font-size:clamp(2rem,4vw,3rem);line-height:1.15;margin:12px 0 8px;text-shadow:0 2px 18px rgba(40,80,150,.28)}
+    .about-panel p{margin:0;color:var(--muted)}
+    .btn{background:var(--brand);color:#071119;border:none;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 8px 30px -12px var(--ring)}
+    .btn:hover{transform:translateY(-1px)}
+    .btn.secondary{background:#0d1422;color:var(--text);border:1px solid #213150}
+    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+
+    /* Fortalezas */
+    .strengths{margin-top:18px}
+    .s-strip{display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+    .s-item{background:#0c152a;border:1px solid #1f2f55;border-radius:14px;padding:14px 14px;display:flex;gap:12px;align-items:center;box-shadow:0 10px 30px -18px #000a}
+    .s-ico{flex:0 0 40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg, rgba(106,169,255,.18), rgba(142,240,165,.18));border:1px solid #22335c}
+    .s-text b{display:block;font-size:.98rem}
+    .s-text span{display:block;color:var(--muted);font-size:.85rem;line-height:1.35}
+
+    /* Secciones comunes */
+    section{margin-top:42px}
+    h2{font-size:1.7rem;margin:0 0 14px}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+    .card{background:var(--card);border:1px solid #1b2740;border-radius:16px;padding:16px;box-shadow:0 12px 34px -18px #0008, var(--glow);transform:translateY(0);transition:transform .25s,border-color .25s,box-shadow .25s}
+    .card:hover{transform:translateY(-6px);border-color:#2a3b63;box-shadow:0 16px 48px -18px #000b,0 0 0 1px rgba(90,169,255,.1), inset 0 0 0 1px rgba(90,169,255,.06)}
+    .card h3{margin:8px 0 6px;font-size:1.1rem}
+    .meta{font-size:.9rem;color:var(--muted);margin-bottom:8px}
+    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+    .tag{font-size:.78rem;padding:4px 8px;border-radius:999px;background:#0c1a32;border:1px solid #203355;color:#b4c6e5}
+
+    /* Destacados: miniportadas */
+    .thumb{width:100%;height:110px;border-radius:12px;background:#0a1326 center/cover no-repeat;border:1px solid #1e2d4f;box-shadow:inset 0 0 40px rgba(90,169,255,.05)}
+    .thumb img{display:block;width:100%;height:110px;object-fit:cover;border-radius:12px}
+
+    .toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+    .control{padding:10px 12px;border-radius:10px;border:1px solid #213150;background:#0b1220;color:#e8eef9;outline:none}
+    .control:focus{box-shadow:0 0 0 3px rgba(90,169,255,.25)}
+
+    /* Reveal */
+    .reveal{opacity:0;transform:translateY(18px) scale(.98);filter:blur(4px)}
+    .reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0);transition:all .7s cubic-bezier(.2,.8,.2,1)}
+    footer{margin:56px 0 16px;color:var(--muted);font-size:.9rem}
+
+    /* Responsive */
+    @media (max-width:1100px){ .grid{grid-template-columns:1fr 1fr} }
+    @media (max-width:920px){
+      .hero-top{grid-template-columns:1fr}
+      .photo-orbit{width:280px;height:280px;margin:auto}
+    }
+    @media (max-width:640px){ .grid{grid-template-columns:1fr} .nav .row{display:none} }
   </style>
 </head>
 <body>
-  <!-- NAV -->
-  <nav class="nav">
-    <div class="wrap container">
-      <div class="brand">Erick <span>Fiestas</span></div>
-      <div class="links">
-        <a href="#sobre-mi">Sobre mí</a>
-        <a href="#proyectos">Proyectos</a>
-        <a href="#tecnologias">Tecnologías</a>
+  <header>
+    <div class="nav container">
+      <div class="brand">
+        <div class="avatar"><div>EF</div></div>
+        <div>
+          <div class="chip">Ingeniería · Web/Móvil · QA</div>
+          <div style="font-weight:800;margin-top:6px">Erick Fiestas</div>
+        </div>
+      </div>
+      <nav class="row">
+        <a href="#about">Sobre mí</a>
+        <a href="#highlights">Destacados</a>
+        <a href="#services">Servicios</a>
+        <a href="#projects">Proyectos</a>
         <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <div class="hero">
+    <canvas id="fx" aria-hidden="true"></canvas>
+    <div class="hero-inner container">
+
+      <!-- Fila 1: foto izquierda / placa derecha -->
+      <div class="hero-top">
+        <div class="photo-wrap reveal" id="tilt">
+          <div class="photo-orbit">
+            <div class="ring" aria-hidden="true"></div>
+            <div class="pulse" aria-hidden="true"></div>
+            <div class="photo" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"></div>
+            <div class="photo-fallback" style="display:none">EF</div>
+          </div>
+        </div>
+
+        <div class="id-plate reveal">
+          <div class="id-badge">EF</div>
+          <div class="id-text">
+            <b>Erick Fiestas</b>
+            <span>Técnico en Computación e Informática</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Fila 2: Sobre mí (ancho completo) -->
+      <div id="about" class="about-panel reveal">
+        <span class="chip">Disponible · Java/Spring • Angular • Android • iOS • QA</span>
+        <h1>Desarrollador de software — construyo productos <em style="color:var(--accent);font-style:normal">web y móviles</em> de alta calidad.</h1>
+        <p>Especializado en <strong>APIs REST con Java/Spring Boot</strong>, <strong>SPAs con Angular/TypeScript</strong> y <strong>aplicaciones móviles</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabajo con <strong>arquitectura limpia (SOLID)</strong>, <strong>automatización de pruebas</strong> (JUnit/Selenium) y CI con GitHub Actions.</p>
+        <p>Me enfoco en software mantenible, escalable y medible: documentación clara, diseño de bases de datos (MySQL/SQLite), integración de autenticación, archivos y notificaciones, y colaboración eficiente con GitFlow.</p>
+
+        <!-- Fortalezas -->
+        <div class="strengths">
+          <div class="s-strip reveal">
+            <div class="s-item"><div class="s-ico">🧱</div><div class="s-text"><b>Arquitectura limpia</b><span>SOLID, capas, modularidad y patrones.</span></div></div>
+            <div class="s-item"><div class="s-ico">🔗</div><div class="s-text"><b>APIs REST escalables</b><span>Diseño de contratos, seguridad y documentación.</span></div></div>
+            <div class="s-item"><div class="s-ico">🎨</div><div class="s-text"><b>Frontend usable</b><span>Angular, componentes reutilizables y UX pulida.</span></div></div>
+            <div class="s-item"><div class="s-ico">📱</div><div class="s-text"><b>Móvil nativo</b><span>Android (Kotlin) e iOS (UIKit/Core Data).</span></div></div>
+            <div class="s-item"><div class="s-ico">✅</div><div class="s-text"><b>Calidad y pruebas</b><span>JUnit/Selenium, trazabilidad y cobertura.</span></div></div>
+            <div class="s-item"><div class="s-ico">🚀</div><div class="s-text"><b>CI/CD y despliegue</b><span>GitHub Actions, GitHub Pages y versionado.</span></div></div>
+          </div>
+        </div>
+
+        <div class="row" style="margin-top:16px">
+          <a class="btn" href="#services">Servicios</a>
+          <a class="btn secondary" href="#contacto">Hablemos</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DESTACADOS -->
+  <section id="highlights" class="container">
+    <h2 class="reveal">Proyectos destacados</h2>
+    <div class="grid">
+      <article class="card reveal">
+        <div class="thumb"><img src="assets/blogapi.png" alt="BlogApp API" onerror="this.parentElement.style.display='none'"></div>
+        <h3>📝 BlogApp — API REST</h3>
+        <div class="meta">Java · Spring Boot · Maven · JUnit</div>
+        <p>API de publicaciones con autenticación, manejo de archivos y pruebas. Arquitectura limpia y lista para CI/CD.</p>
+        <div class="row">
+          <a class="btn secondary" href="https://github.com/291efx/BlogApp" target="_blank" rel="noopener">Código</a>
+          <a class="btn" href="https://github.com/291efx/BlogApp" target="_blank" rel="noopener">README</a>
+        </div>
+        <div class="tags"><span class="tag">Spring</span><span class="tag">JUnit5</span><span class="tag">REST</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb"><img src="assets/blogfe.png" alt="BlogApp Frontend" onerror="this.parentElement.style.display='none'"></div>
+        <h3>⚡ BlogApp — Frontend (Angular)</h3>
+        <div class="meta">Angular 17 · TypeScript</div>
+        <p>SPA para consumir la API de BlogApp. Componentes reutilizables, rutas protegidas y base para hosting en Pages.</p>
+        <div class="row">
+          <a class="btn secondary" href="https://github.com/291efx/BlogApp_Frontend" target="_blank" rel="noopener">Código</a>
+          <a class="btn" href="https://github.com/291efx/BlogApp_Frontend" target="_blank" rel="noopener">README</a>
+        </div>
+        <div class="tags"><span class="tag">Angular</span><span class="tag">SPA</span></div>
+      </article>
+
+      <article class="card reveal">
+        <div class="thumb"><img src="assets/petlife-thumb.png" alt="PetLife iOS" onerror="this.parentElement.style.display='none'"></div>
+        <h3>🐾 PetLife (iOS)</h3>
+        <div class="meta">UIKit · Core Data · Firebase</div>
+        <p>App nativa para gestionar perfiles, recetas y recordatorios de mascotas. UI programática y persistencia local + sync.</p>
+        <div class="row">
+          <a class="btn secondary" href="https://github.com/291efx/PetLife" target="_blank" rel="noopener">Código</a>
+          <a class="btn" href="https://github.com/291efx/PetLife" target="_blank" rel="noopener">README</a>
+        </div>
+        <div class="tags"><span class="tag">Swift</span><span class="tag">Core Data</span><span class="tag">Firebase</span></div>
+      </article>
+    </div>
+  </section>
+
+  <!-- SERVICIOS -->
+  <section id="services" class="container">
+    <h2 class="reveal">Servicios</h2>
+    <div class="grid">
+      <article class="card reveal"><h3>🌐 Sitios web estáticos</h3><p>Landings y portafolios con SEO, accesibilidad y performance (Lighthouse 90+). Hosting en GitHub Pages.</p><div class="tags"><span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span></div></article>
+      <article class="card reveal"><h3>⚡ Frontend SPA</h3><p>Aplicaciones de una sola página con componentes reutilizables, rutas protegidas y consumo de APIs.</p><div class="tags"><span class="tag">Angular</span><span class="tag">TypeScript</span></div></article>
+      <article class="card reveal"><h3>🧩 Backend / APIs REST</h3><p>APIs seguras, documentación y pruebas automatizadas. Integración con MySQL/SQLite y despliegue.</p><div class="tags"><span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">JWT</span></div></article>
+      <article class="card reveal"><h3>📱 Apps móviles</h3><p>Android (Kotlin) e iOS (UIKit/Core Data) con persistencia local y notificaciones.</p><div class="tags"><span class="tag">Kotlin</span><span class="tag">Swift</span></div></article>
+      <article class="card reveal"><h3>✅ QA & Automatización</h3><p>Pruebas unitarias e integración, pipelines de calidad y reportes. Selenium/JUnit.</p><div class="tags"><span class="tag">JUnit</span><span class="tag">Selenium</span></div></article>
+      <article class="card reveal"><h3>🚀 Deploy & CI/CD</h3><p>Despliegues en GitHub Pages y flujos CI/CD con GitHub Actions.</p><div class="tags"><span class="tag">GitHub Actions</span><span class="tag">Pages</span></div></article>
+    </div>
+  </section>
+
+  <!-- TODOS LOS PROYECTOS (GitHub API) -->
+  <section id="projects" class="container">
+    <h2 class="reveal">Todos los proyectos</h2>
+    <div class="about-panel reveal" style="margin-bottom:16px">
+      <div class="toolbar">
+        <div class="row" style="gap:8px">
+          <span class="chip">Desde GitHub (@291efx)</span>
+          <span class="chip" id="repo-count">Cargando…</span>
+        </div>
+        <div class="row">
+          <input id="search" class="control" placeholder="Buscar proyecto…" />
+          <select id="languageFilter" class="control">
+            <option value="">Todos los lenguajes</option>
+          </select>
+        </div>
       </div>
     </div>
-  </nav>
+    <div class="grid" id="repo-list"></div>
+  </section>
 
-  <main class="container">
-    <!-- HERO -->
-    <section class="hero" aria-labelledby="nombre">
-      <div class="avatar">
-        <!-- Reemplaza la ruta de la imagen -->
-        <img src="assets/profile.jpg" alt="Foto de perfil de Erick Fiestas">
-      </div>
-      <div class="headings">
-        <h1 class="name" id="nombre">Erick Fiestas</h1>
-        <h2 class="title">Técnico en Computación e Informática</h2>
-        <p class="kicker">Desarrollador de software — Web y Móvil • APIs REST • SPAs • Android/iOS • QA</p>
-      </div>
-    </section>
+  <!-- CONTACTO -->
+  <section id="contacto" class="container">
+    <h2 class="reveal">Contacto</h2>
+    <div class="about-panel reveal">
+      <p>¿Construimos algo juntos? Escríbeme:</p>
+      <ul>
+        <li>Email: <a href="mailto:erickfiestas@gmail.com">erickfiestas@gmail.com</a></li>
+        <li>LinkedIn: <a href="https://www.linkedin.com/in/291eafp/" target="_blank" rel="noopener">linkedin.com/in/291eafp</a></li>
+        <li>GitHub: <a href="https://github.com/291efx" target="_blank" rel="noopener">@291efx</a></li>
+      </ul>
+    </div>
+  </section>
 
-    <!-- SOBRE MI -->
-    <section id="sobre-mi" class="card">
-      <h2>Sobre mí</h2>
-      <div class="about">
-        Soy desarrollador de software especializado en <strong>APIs REST con Java/Spring Boot</strong>,
-        <strong>SPAs con Angular/TypeScript</strong> y <strong>aplicaciones móviles</strong> para
-        Android (Kotlin) e iOS (UIKit/Core Data). Trabajo con <em>arquitectura limpia (SOLID)</em>,
-        <em>automatización de pruebas</em> (JUnit/Selenium) e <em>integración continua</em> con GitHub Actions.
-        Me enfoco en software mantenible, escalable y con documentación clara.
-      </div>
-    </section>
-
-    <!-- PROYECTOS DESTACADOS -->
-    <section id="proyectos">
-      <h2>Proyectos destacados</h2>
-      <div class="grid">
-        <!-- PROYECTO 1 -->
-        <article class="card proj">
-          <div class="icon" aria-hidden="true">🧭</div>
-          <h3 class="ptitle">BlogApp — API REST</h3>
-          <p class="pmeta">Java · Spring Boot · Maven · JUnit</p>
-          <p class="pdesc">API de publicaciones con autenticación, manejo de roles y pruebas unitarias/integra­ción.</p>
-          <div class="prow">
-            <a class="btn" href="https://github.com/291efx/BlogApp-API" target="_blank" rel="noopener">Código</a>
-            <a class="btn" href="#" target="_blank" rel="noopener">Demo</a>
-          </div>
-        </article>
-
-        <!-- PROYECTO 2 -->
-        <article class="card proj">
-          <div class="icon" aria-hidden="true">⚡</div>
-          <h3 class="ptitle">BlogApp — Frontend</h3>
-          <p class="pmeta">Angular 17 · TypeScript</p>
-          <p class="pdesc">SPA para consumir la API de BlogApp. Componentes reutilizables y routing protegido.</p>
-          <div class="prow">
-            <a class="btn" href="https://github.com/291efx/BlogApp-Frontend" target="_blank" rel="noopener">Código</a>
-            <a class="btn" href="#" target="_blank" rel="noopener">Demo</a>
-          </div>
-        </article>
-
-        <!-- PROYECTO 3 -->
-        <article class="card proj">
-          <div class="icon" aria-hidden="true">📱</div>
-          <h3 class="ptitle">PetLife — iOS</h3>
-          <p class="pmeta">Swift · UIKit · Core Data</p>
-          <p class="pdesc">App nativa para gestión de mascotas, perfiles, recordatorios y persistencia con Core Data.</p>
-          <div class="prow">
-            <a class="btn" href="https://github.com/291efx/PetLife-iOS" target="_blank" rel="noopener">Código</a>
-            <a class="btn" href="#" target="_blank" rel="noopener">Demo</a>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <!-- TECNOLOGÍAS -->
-    <section id="tecnologias" class="card">
-      <h2>Tecnologías y Lenguajes</h2>
-      <div class="chips" aria-label="Tecnologías">
-        <span class="chip">Java</span>
-        <span class="chip">Spring Boot</span>
-        <span class="chip">Maven</span>
-        <span class="chip">JUnit</span>
-        <span class="chip">Mockito</span>
-        <span class="chip">Selenium</span>
-        <span class="chip">Angular</span>
-        <span class="chip">TypeScript</span>
-        <span class="chip">JavaScript</span>
-        <span class="chip">Kotlin</span>
-        <span class="chip">Android</span>
-        <span class="chip">Swift</span>
-        <span class="chip">iOS (UIKit/Core Data)</span>
-        <span class="chip">SQL</span>
-        <span class="chip">MySQL</span>
-        <span class="chip">Git &amp; GitHub</span>
-        <span class="chip">CI/CD</span>
-        <span class="chip small">Arquitectura limpia (SOLID)</span>
-        <span class="chip small">JWT/Auth</span>
-        <span class="chip small">REST</span>
-      </div>
-    </section>
-
-    <!-- CONTACTO -->
-    <section id="contacto" class="card contact" aria-labelledby="contacto-title">
-      <h2 id="contacto-title">Contacto</h2>
-      <a class="mail" href="mailto:erick.fiestas.plaza.20@gmail.com" aria-label="Enviar correo a Erick Fiestas">
-        📧 erick.fiestas.plaza.20@gmail.com
-      </a>
-    </section>
-  </main>
-
-  <footer class="container" style="opacity:.7;text-align:center;padding:24px 0;border-top:1px solid rgba(255,255,255,.06)">
-    © <span id="y"></span> Erick Fiestas — Portafolio
-  </footer>
+  <footer class="container">© <span id="y"></span> Erick Fiestas · Hecho con HTML/CSS puro y GitHub Pages</footer>
 
   <script>
-    // año dinámico
+    // Año
     document.getElementById('y').textContent = new Date().getFullYear();
-  </script>
-</body>
-</html>
+
+    // Reveal on scroll
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+    },{threshold:.12});
+    document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+
+    // Tilt suave en la foto
+    (function(){
+      const wrap = document.getElementById('tilt');
+      if(!wrap) return;
+      const orbit = wrap.querySelector('.photo-orbit');
+      wrap.addEventListener('mousemove', (e)=>{
+        const r = wrap.getBoundingClientRect();
+        const x = (e.clientX - r.left) / r.width - .5;
+        const y = (e.clientY - r.top) / r.height - .5;
+        orbit.style.transform = `rotateX(${(-y*8).toFixed(2)}deg) rotateY(${(x*12).toFixed(2)}deg)`;
+      });
+      wrap.addEventListener('mouseleave', ()=>{ orbit.style.transform='rotateX(0) rotateY(0)'; });
+    })();
+
+    // Partículas del header
+    const canvas = document.getElementById('fx');
+    if (canvas) {
+      const ctx = canvas.getContext('2d');
+      let W,H,parts=[];
+      function resize(){ W=canvas.width=window.innerWidth; H=canvas.height=360; }
+      function rnd(a,b){ return Math.random()*(b-a)+a }
+      function spawn(){ parts = Array.from({length:90}).map(()=>({x:rnd(0,W), y:rnd(0,H), r:rnd(0.6,2.2), a:rnd(.15,.45), vx:rnd(-.15,.15), vy:rnd(.08,.35)})); }
+      function tick(){
+        ctx.clearRect(0,0,W,H);
+        for(const p of parts){
+          p.x+=p.vx; p.y+=p.vy;
+          if(p.y>H || p.x<0 || p.x>W){ p.x=rnd(0,W); p.y=rnd(-20,0); }
+          ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+          ctx.fillStyle=`rgba(138,180,247,${p.a})`; ctx.fill();
+        }
+        requestAnimationFrame(tick);
+      }
+      resize(); spawn(); tick(); window.addEventListener('resize',()=>{resize(); spawn();});
+    }
+
+    // Repos dinámicos
+    const REPOS_URL = 'https://api.github.com/users/291efx/repos?per_page=100&sort=updated';
+    const list = document.getElementById('repo-list');
+    const countEl = document.getElementById('repo-count');
+    const langSelect = document.getElementById('languageFilter');
+    const searchInput = document.getElementById('search');
+    let ALL = [];
+
+    function repoCard(repo){
+      const date = new Date(repo.pushed_at).toLocaleDateString();
+      const lang = repo.language ? `<span class="tag">${repo.language}</span>` : '';
+      const archived = repo.archived ? '<span class="tag">archivado</span>' : '';
+      return `
+        <article class="card reveal">
+          <h3>${repo.name}</h3>
+          <div class="meta">${repo.language || 'Sin lenguaje principal'} · ⭐ ${repo.stargazers_count} · ↑ ${date}</div>
+          <p>${re
