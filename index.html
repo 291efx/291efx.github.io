@@ -1,234 +1,268 @@
 <!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Erick Fiestas — Portafolio</title>
-  <meta name="description" content="Portafolio de Erick Fiestas — Desarrollo Web/Móvil, APIs con Java/Spring Boot, Angular, iOS y automatización QA." />
-  <style>
-    :root{
-      --bg1:#080c14; --bg2:#0a1220; --bg3:#0b1630;
-      --glass:#0f1522cc; --card:#0f1522; --text:#e8eef9; --muted:#9ab0d1;
-      --brand:#6aa9ff; --accent:#8ef0a5; --ring:rgba(106,169,255,.4);
-      --glow:0 0 20px rgba(138,180,247,.25), inset 0 0 40px rgba(90,169,255,.06);
-    }
-    *{box-sizing:border-box}
-    html,body{margin:0;padding:0;height:100%;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3));background-size:300% 300%;animation:bgmove 25s ease infinite}
-    @keyframes bgmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-    a{color:var(--brand);text-decoration:none}
-    a:hover{text-decoration:underline}
-    .container{max-width:1200px;margin:auto;padding:24px}
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title data-i18n="meta.title">Erick Fiestas — Portafolio</title>
+    <meta name="description" content="Portafolio de Erick Fiestas — Desarrollo Web/Móvil, APIs con Java/Spring Boot, Angular, iOS y automatización QA." />
+    <style>
+        :root{
+            --bg1:#080c14; --bg2:#0a1220; --bg3:#0b1630;
+            --glass:#0f1522cc; --card:#0f1522; --text:#e8eef9; --muted:#9ab0d1;
+            --brand:#6aa9ff; --accent:#8ef0a5; --ring:rgba(106,169,255,.4);
+            --glow:0 0 20px rgba(138,180,247,.25), inset 0 0 40px rgba(90,169,255,.06);
+        }
+        *{box-sizing:border-box}
+        html,body{margin:0;padding:0;height:100%;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3));background-size:300% 300%;animation:bgmove 25s ease infinite}
+        @keyframes bgmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+        a{color:var(--brand);text-decoration:none}
+        a:hover{text-decoration:underline}
+        .container{max-width:1200px;margin:auto;padding:24px}
 
-    /* NAV */
-    header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(8,12,20,.7),rgba(8,12,20,.2));backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid #1a2742}
-    .nav{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 24px}
-    .brand{display:flex;gap:12px;align-items:center}
-    .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent));padding:2px;box-shadow:var(--glow)}
-    .avatar>div{width:100%;height:100%;border-radius:50%;background:#0b0f17;display:grid;place-items:center;font-weight:800;letter-spacing:.3px}
-    .nav a{opacity:.9} .nav a:hover{opacity:1}
+        /* NAV */
+        header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(8,12,20,.7),rgba(8,12,20,.2));backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid #1a2742}
+        .nav{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 24px}
+        .brand{display:flex;gap:12px;align-items:center}
+        .avatar{width:44px;height:44px;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent));padding:2px;box-shadow:var(--glow)}
+        .avatar>div{width:100%;height:100%;border-radius:50%;background:#0b0f17;display:grid;place-items:center;font-weight:800;letter-spacing:.3px}
+        .nav a{opacity:.9} .nav a:hover{opacity:1}
+        .lang{display:flex;gap:6px;align-items:center}
+        .lang button{background:#0d1422;color:var(--text);border:1px solid #213150;padding:6px 10px;border-radius:10px;cursor:pointer}
+        .lang button.active{background:var(--brand);color:#071119;border-color:transparent}
 
-    /* HERO / SOBRE MI PRIMERO */
-    .about-hero{position:relative;overflow:hidden}
-    canvas#fx{position:absolute;inset:0;z-index:0}
-    .about{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:center;padding:56px 24px}
-    .chip{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(138,180,247,.12);border:1px solid rgba(138,180,247,.25);color:var(--muted);font-size:.85rem}
-    .about h1{font-size:clamp(2rem,4vw,3rem);line-height:1.15;margin:10px 0 6px;text-shadow:0 2px 18px rgba(40,80,150,.28)}
-    .about p{margin:0;color:var(--muted)}
-    .glassy{background:var(--glass);border:1px solid #1b2740;border-radius:16px;padding:18px;box-shadow:var(--glow)}
-    .photo-wrap{display:grid;place-items:center}
-    .photo{width:180px;height:180px;border-radius:50%;background:#0b0f17 url('assets/erick.jpg') center/cover no-repeat;border:2px solid #213150;box-shadow:var(--glow)}
-    .photo-fallback{width:180px;height:180px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--accent));font-weight:900;color:#06101c}
+        /* SOBRE MI (PRIMERO) */
+        .about-hero{position:relative;overflow:hidden}
+        canvas#fx{position:absolute;inset:0;z-index:0}
+        .about{position:relative;z-index:1;display:grid;grid-template-columns:1fr 1.1fr;gap:28px;align-items:center;padding:56px 24px}
+        .chip{display:inline-block;padding:6px 12px;border-radius:999px;background:rgba(138,180,247,.12);border:1px solid rgba(138,180,247,.25);color:var(--muted);font-size:.85rem}
+        .about h1{font-size:clamp(2rem,4vw,3rem);line-height:1.15;margin:10px 0 6px;text-shadow:0 2px 18px rgba(40,80,150,.28)}
+        .about p{margin:0;color:var(--muted)}
+        .glassy{background:var(--glass);border:1px solid #1b2740;border-radius:16px;padding:18px;box-shadow:var(--glow)}
+        .photo-wrap{display:grid;place-items:center}
+        .photo{width:260px;height:260px;border-radius:50%;background:#0b0f17 url('assets/erick.jpg') center/cover no-repeat;border:2px solid #213150;box-shadow:var(--glow)}
+        .photo-fallback{width:260px;height:260px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(135deg,var(--brand),var(--accent));font-weight:900;color:#06101c}
+        .kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+        .kpis .pill{background:#0c1a32;border:1px solid #203355;color:#b4c6e5;border-radius:12px;padding:10px 12px;text-align:center}
 
-    /* SECTIONS */
-    section{margin-top:42px}
-    h2{font-size:1.7rem;margin:0 0 14px}
-    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-    .card{background:var(--card);border:1px solid #1b2740;border-radius:16px;padding:16px;box-shadow:0 12px 34px -18px #0008, var(--glow);transform:translateY(0);transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease}
-    .card:hover{transform:translateY(-6px);border-color:#2a3b63;box-shadow:0 16px 48px -18px #000b, 0 0 0 1px rgba(90,169,255,.1), inset 0 0 0 1px rgba(90,169,255,.06)}
-    .card h3{margin:0 0 6px;font-size:1.1rem}
-    .meta{font-size:.9rem;color:var(--muted);margin-bottom:8px}
-    .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
-    .tag{font-size:.78rem;padding:4px 8px;border-radius:999px;background:#0c1a32;border:1px solid #203355;color:#b4c6e5}
-    .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
-    .toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
-    .control{padding:10px 12px;border-radius:10px;border:1px solid #213150;background:#0b1220;color:#e8eef9;outline:none}
-    .control:focus{box-shadow:0 0 0 3px rgba(90,169,255,.25)}
+        /* GENERALES */
+        section{margin-top:42px}
+        h2{font-size:1.7rem;margin:0 0 14px}
+        .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+        .card{background:var(--card);border:1px solid #1b2740;border-radius:16px;padding:16px;box-shadow:0 12px 34px -18px #0008, var(--glow);transform:translateY(0);transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease}
+        .card:hover{transform:translateY(-6px);border-color:#2a3b63;box-shadow:0 16px 48px -18px #000b, 0 0 0 1px rgba(90,169,255,.1), inset 0 0 0 1px rgba(90,169,255,.06)}
+        .card h3{margin:0 0 6px;font-size:1.1rem}
+        .meta{font-size:.9rem;color:var(--muted);margin-bottom:8px}
+        .tags{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}
+        .tag{font-size:.78rem;padding:4px 8px;border-radius:999px;background:#0c1a32;border:1px solid #203355;color:#b4c6e5}
+        .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+        .toolbar{display:flex;gap:10px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+        .control{padding:10px 12px;border-radius:10px;border:1px solid #213150;background:#0b1220;color:#e8eef9;outline:none}
+        .control:focus{box-shadow:0 0 0 3px rgba(90,169,255,.25)}
+        .btn{background:var(--brand);color:#071119;border:none;padding:12px 16px;border-radius:12px;font-weight:700;cursor:pointer;box-shadow:0 8px 30px -12px var(--ring)}
+        .btn:hover{transform:translateY(-1px)}
+        .btn.secondary{background:#0d1422;color:var(--text);border:1px solid #213150}
 
-    /* REVEAL ON SCROLL */
-    .reveal{opacity:0;transform:translateY(18px) scale(.98);filter:blur(4px)}
-    .reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0);transition:all .7s cubic-bezier(.2,.8,.2,1)}
+        /* REVEAL */
+        .reveal{opacity:0;transform:translateY(18px) scale(.98);filter:blur(4px)}
+        .reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0);transition:all .7s cubic-bezier(.2,.8,.2,1)}
 
-    footer{margin:56px 0 16px;color:var(--muted);font-size:.9rem}
+        footer{margin:56px 0 16px;color:var(--muted);font-size:.9rem}
 
-    @media (max-width:1000px){ .about{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr} }
-    @media (max-width:640px){ .grid{grid-template-columns:1fr} .nav .row{display:none} }
-  </style>
+        @media (max-width:1000px){ .about{grid-template-columns:1fr}.grid{grid-template-columns:1fr 1fr} }
+        @media (max-width:640px){ .grid{grid-template-columns:1fr} .nav .row{display:none} }
+    </style>
 </head>
 <body>
 
-  <!-- NAV -->
-  <header>
+<!-- NAV -->
+<header>
     <div class="nav container">
-      <div class="brand">
-        <div class="avatar"><div>EF</div></div>
-        <div>
-          <div class="chip">Ingeniería · Web/Móvil · QA</div>
-          <div style="font-weight:800;margin-top:6px">Erick Fiestas</div>
+        <div class="brand">
+            <div class="avatar"><div>EF</div></div>
+            <div>
+                <div class="chip" data-i18n="nav.tag">Ingeniería · Web/Móvil · QA</div>
+                <div style="font-weight:800;margin-top:6px">Erick Fiestas</div>
+            </div>
         </div>
-      </div>
-      <nav class="row">
-        <a href="#about">Sobre mí</a>
-        <a href="#highlights">Destacados</a>
-        <a href="#projects">Proyectos</a>
-        <a href="#contacto">Contacto</a>
-        <a href="https://github.com/291efx" target="_blank" rel="noopener">GitHub ↗</a>
-      </nav>
+        <nav class="row">
+            <a href="#about" data-i18n="nav.about">Sobre mí</a>
+            <a href="#highlights" data-i18n="nav.highlights">Destacados</a>
+            <a href="#projects" data-i18n="nav.projects">Proyectos</a>
+            <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+            <a href="https://github.com/291efx" target="_blank" rel="noopener">GitHub ↗</a>
+        </nav>
+        <div class="lang" aria-label="selector de idioma">
+            <button data-lang="es" class="active">ES</button>
+            <button data-lang="en">EN</button>
+            <button data-lang="pt">PT</button>
+        </div>
     </div>
-  </header>
+</header>
 
-  <!-- SOBRE MÍ (PRIMERO) con foto -->
-  <div class="about-hero">
+<!-- SOBRE MÍ (PRIMERO) con foto -->
+<div class="about-hero">
     <canvas id="fx" aria-hidden="true"></canvas>
     <section id="about" class="about container">
-      <div class="photo-wrap reveal">
-        <!-- Reemplaza assets/erick.jpg con tu foto. Si no existe, se muestra fallback con EF -->
-        <div class="photo" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"></div>
-        <div class="photo-fallback" style="display:none">EF</div>
-      </div>
-      <div class="glassy reveal">
-        <span class="chip">Disponible · Java/Spring • Angular • Android • iOS • QA</span>
-        <h1>Desarrollador de software — construyo productos <em style="color:var(--accent);font-style:normal">web y móviles</em> de alta calidad.</h1>
-        <p>Experiencia en <strong>Java/Spring Boot</strong>, <strong>Angular/TypeScript</strong>, 
-           <strong>Android (Kotlin)</strong>, <strong>iOS (UIKit/Core Data)</strong>, bases de datos 
-           <strong>MySQL/SQLite</strong> y <strong>automatización QA</strong> (JUnit/Selenium). Arquitectura limpia (SOLID), documentación y CI con GitHub Actions.</p>
-        <ul style="margin:10px 0 0 18px;color:var(--muted)">
-          <li>Diseño/consumo de APIs REST y modelado de datos.</li>
-          <li>Integración de autenticación, manejo de archivos y notificaciones.</li>
-          <li>Trabajo colaborativo con GitFlow y foco en mantenibilidad/rendimiento.</li>
-        </ul>
-        <div class="row" style="margin-top:14px">
-          <a class="btn" href="#projects">Ver proyectos</a>
-          <a class="btn secondary" href="#contacto">Hablemos</a>
+        <div class="photo-wrap reveal">
+            <!-- Reemplaza assets/erick.jpg con tu foto. Si no existe, aparece fallback con EF -->
+            <div class="photo" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'"></div>
+            <div class="photo-fallback" style="display:none">EF</div>
+            <div class="kpis" style="margin-top:16px">
+                <div class="pill" data-i18n="about.kpi1">+5 proyectos full-stack</div>
+                <div class="pill" data-i18n="about.kpi2">+3 apps móviles</div>
+                <div class="pill" data-i18n="about.kpi3">+2 flujos CI/CD</div>
+            </div>
         </div>
-      </div>
+        <div class="glassy reveal">
+            <span class="chip" data-i18n="about.badge">Disponible · Java/Spring • Angular • Android • iOS • QA</span>
+            <h1 data-i18n="about.title">
+                Desarrollador de software — construyo productos <em style="color:var(--accent);font-style:normal">web y móviles</em> de alta calidad.
+            </h1>
+            <p data-i18n="about.p1">
+                Especializado en <strong>APIs REST con Java/Spring Boot</strong>, <strong>SPAs con Angular/TypeScript</strong> y
+                <strong>aplicaciones móviles</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabajo con
+                <strong>arquitectura limpia (SOLID)</strong>, <strong>automatización de pruebas</strong> (JUnit/Selenium) y
+                CI con GitHub Actions.
+            </p>
+            <p data-i18n="about.p2">
+                Me enfoco en entregar software mantenible, escalable y medible: documentación clara, diseño de bases de datos
+                (MySQL/SQLite), integración de autenticación, manejo de archivos y notificaciones, y colaboración eficiente
+                con GitFlow.
+            </p>
+            <ul style="margin:10px 0 0 18px;color:var(--muted)">
+                <li data-i18n="about.li1">Diseño/consumo de APIs y modelado de datos centrado en el dominio.</li>
+                <li data-i18n="about.li2">Trazabilidad de calidad con pruebas unitarias e integración.</li>
+                <li data-i18n="about.li3">Optimización de rendimiento y UX cuidada.</li>
+            </ul>
+            <div class="row" style="margin-top:14px">
+                <a class="btn" href="#projects" data-i18n="about.cta.projects">Ver proyectos</a>
+                <a class="btn secondary" href="#contacto" data-i18n="about.cta.contact">Hablemos</a>
+            </div>
+        </div>
     </section>
-  </div>
+</div>
 
-  <!-- DESTACADOS (orden: Blog API, Frontend, PetLife al final con logo) -->
-  <section id="highlights" class="container">
-    <h2 class="reveal">Proyectos destacados</h2>
+<!-- DESTACADOS (Blog API, Frontend, PetLife con logo al final) -->
+<section id="highlights" class="container">
+    <h2 class="reveal" data-i18n="high.title">Proyectos destacados</h2>
     <div class="grid">
-      <!-- BlogApp API REST -->
-      <article class="card reveal">
-        <h3>📝 BlogApp — API REST</h3>
-        <div class="meta">Java · Spring Boot · Maven · JUnit</div>
-        <p>API de publicaciones con autenticación, manejo de archivos y pruebas. Arquitectura limpia y lista para CI/CD.</p>
-        <div class="row">
-          <a class="btn secondary" href="https://github.com/291efx/BlogApp" target="_blank" rel="noopener">Código</a>
-          <a class="btn" href="https://github.com/291efx/BlogApp" target="_blank" rel="noopener">README</a>
-        </div>
-        <div class="tags"><span class="tag">Spring</span><span class="tag">JUnit5</span><span class="tag">REST</span></div>
-      </article>
+        <!-- BlogApp API REST -->
+        <article class="card reveal">
+            <h3 data-i18n="high.blogapi.title">📝 BlogApp — API REST</h3>
+            <div class="meta" data-i18n="high.blogapi.meta">Java · Spring Boot · Maven · JUnit</div>
+            <p data-i18n="high.blogapi.desc">
+                API de publicaciones con autenticación, manejo de archivos y pruebas. Arquitectura limpia y lista para CI/CD.
+            </p>
+            <div class="row">
+                <a class="btn secondary" href="https://github.com/291efx/BlogApp" target="_blank" rel="noopener" data-i18n="btn.code">Código</a>
+                <a class="btn" href="https://github.com/291efx/BlogApp" target="_blank" rel="noopener" data-i18n="btn.readme">README</a>
+            </div>
+            <div class="tags"><span class="tag">Spring</span><span class="tag">JUnit5</span><span class="tag">REST</span></div>
+        </article>
 
-      <!-- BlogApp Frontend -->
-      <article class="card reveal">
-        <h3>⚡ BlogApp — Frontend (Angular)</h3>
-        <div class="meta">Angular 17 · TypeScript</div>
-        <p>SPA para consumir la API de BlogApp. Componentes reutilizables, rutas protegidas y base para hosting en Pages.</p>
-        <div class="row">
-          <a class="btn secondary" href="https://github.com/291efx/BlogApp_Frontend" target="_blank" rel="noopener">Código</a>
-          <a class="btn" href="https://github.com/291efx/BlogApp_Frontend" target="_blank" rel="noopener">README</a>
-        </div>
-        <div class="tags"><span class="tag">Angular</span><span class="tag">SPA</span></div>
-      </article>
+        <!-- BlogApp Frontend -->
+        <article class="card reveal">
+            <h3 data-i18n="high.blogfe.title">⚡ BlogApp — Frontend (Angular)</h3>
+            <div class="meta" data-i18n="high.blogfe.meta">Angular 17 · TypeScript</div>
+            <p data-i18n="high.blogfe.desc">
+                SPA para consumir la API de BlogApp. Componentes reutilizables, rutas protegidas y base para hosting en Pages.
+            </p>
+            <div class="row">
+                <a class="btn secondary" href="https://github.com/291efx/BlogApp_Frontend" target="_blank" rel="noopener" data-i18n="btn.code">Código</a>
+                <a class="btn" href="https://github.com/291efx/BlogApp_Frontend" target="_blank" rel="noopener" data-i18n="btn.readme">README</a>
+            </div>
+            <div class="tags"><span class="tag">Angular</span><span class="tag">SPA</span></div>
+        </article>
 
-      <!-- PetLife (último en destacados) -->
-      <article class="card reveal">
-        <div class="row" style="justify-content:space-between;align-items:center">
-          <h3 style="margin:0">🐾 PetLife (iOS)</h3>
-          <!-- Logo opcional: sube assets/petlife-logo.png -->
-          <img src="assets/petlife-logo.png" alt="PetLife" style="height:32px;opacity:.95" onerror="this.style.display='none'">
-        </div>
-        <div class="meta">UIKit · Core Data · Firebase</div>
-        <p>App nativa para gestionar perfiles, recetas y recordatorios de mascotas. UI programática (sin Storyboard) y persistencia local + sync.</p>
-        <div class="row">
-          <a class="btn secondary" href="https://github.com/291efx/PetLife" target="_blank" rel="noopener">Código</a>
-          <a class="btn" href="https://github.com/291efx/PetLife" target="_blank" rel="noopener">README</a>
-        </div>
-        <div class="tags"><span class="tag">Swift</span><span class="tag">Core Data</span><span class="tag">Firebase</span></div>
-      </article>
+        <!-- PetLife (último) -->
+        <article class="card reveal">
+            <div class="row" style="justify-content:space-between;align-items:center">
+                <h3 style="margin:0" data-i18n="high.petlife.title">🐾 PetLife (iOS)</h3>
+                <!-- Logo opcional: sube assets/petlife-logo.png -->
+                <img src="assets/petlife-logo.png" alt="PetLife" style="height:80px;opacity:.95" onerror="this.style.display='none'">
+            </div>
+            <div class="meta" data-i18n="high.petlife.meta">UIKit · Core Data · Firebase</div>
+            <p data-i18n="high.petlife.desc">
+                App nativa para gestionar perfiles, recetas y recordatorios de mascotas. UI programática (sin Storyboard) y persistencia local + sync.
+            </p>
+            <div class="row">
+                <a class="btn secondary" href="https://github.com/291efx/PetLife" target="_blank" rel="noopener" data-i18n="btn.code">Código</a>
+                <a class="btn" href="https://github.com/291efx/PetLife" target="_blank" rel="noopener" data-i18n="btn.readme">README</a>
+            </div>
+            <div class="tags"><span class="tag">Swift</span><span class="tag">Core Data</span><span class="tag">Firebase</span></div>
+        </article>
     </div>
-  </section>
+</section>
 
-  <!-- TODOS LOS PROYECTOS (DINÁMICO) -->
-  <section id="projects" class="container">
-    <h2 class="reveal">Todos los proyectos</h2>
+<!-- TODOS LOS PROYECTOS (DINÁMICO) -->
+<section id="projects" class="container">
+    <h2 class="reveal" data-i18n="all.title">Todos los proyectos</h2>
     <div class="glassy reveal" style="margin-bottom:16px">
-      <div class="toolbar">
-        <div class="row" style="gap:8px">
-          <span class="chip">Desde GitHub (@291efx)</span>
-          <span class="chip" id="repo-count">Cargando…</span>
+        <div class="toolbar">
+            <div class="row" style="gap:8px">
+                <span class="chip" data-i18n="all.from">Desde GitHub (@291efx)</span>
+                <span class="chip" id="repo-count">Cargando…</span>
+            </div>
+            <div class="row">
+                <input id="search" class="control" placeholder="Buscar proyecto…" data-i18n-attr="placeholder:all.search_ph" />
+                <select id="languageFilter" class="control">
+                    <option value="" data-i18n="all.lang_all">Todos los lenguajes</option>
+                </select>
+            </div>
         </div>
-        <div class="row">
-          <input id="search" class="control" placeholder="Buscar proyecto…" />
-          <select id="languageFilter" class="control">
-            <option value="">Todos los lenguajes</option>
-          </select>
-        </div>
-      </div>
     </div>
     <div class="grid" id="repo-list"></div>
-  </section>
+</section>
 
-  <!-- CONTACTO -->
-  <section id="contacto" class="container">
-    <h2 class="reveal">Contacto</h2>
+<!-- CONTACTO -->
+<section id="contacto" class="container">
+    <h2 class="reveal" data-i18n="contact.title">Contacto</h2>
     <div class="glassy reveal">
-      <p>¿Construimos algo juntos? Escríbeme:</p>
-      <ul>
-        <li>Email: <a href="mailto:erickfiestas@gmail.com">erickfiestas@gmail.com</a></li>
-        <li>GitHub: <a href="https://github.com/291efx" target="_blank" rel="noopener">@291efx</a></li>
-        <li>LinkedIn: <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">linkedin/in/your-handle</a></li>
-      </ul>
+        <p data-i18n="contact.p1">¿Construimos algo juntos? Escríbeme:</p>
+        <ul>
+            <li>Email: <a href="mailto:erickfiestas@gmail.com">erickfiestas@gmail.com</a></li>
+            <li>GitHub: <a href="https://github.com/291efx" target="_blank" rel="noopener">@291efx</a></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/in/your-handle" target="_blank" rel="noopener">linkedin/in/your-handle</a></li>
+        </ul>
     </div>
-  </section>
+</section>
 
-  <footer class="container">© <span id="y"></span> Erick Fiestas · Hecho con HTML/CSS puro y GitHub Pages</footer>
+<footer class="container">© <span id="y"></span> Erick Fiestas · <span data-i18n="footer.made">Hecho con HTML/CSS puro y GitHub Pages</span></footer>
 
-  <script>
-    // Año
+<script>
+    /* ==== Año ==== */
     document.getElementById('y').textContent = new Date().getFullYear();
 
-    // Reveal on scroll
+    /* ==== Reveal on scroll ==== */
     const io = new IntersectionObserver((entries)=>{
-      entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
+        entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('visible'); io.unobserve(e.target); }});
     },{threshold:.12});
     document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 
-    // Partículas sutiles del header
+    /* ==== Partículas sutiles en header ==== */
     const c = document.getElementById('fx'), ctx = c.getContext('2d');
     let W,H,parts=[];
-    function resize(){ W=c.width=window.innerWidth; H=c.height=320; }
+    function resize(){ W=c.width=window.innerWidth; H=c.height=360; }
     function rnd(a,b){ return Math.random()*(b-a)+a }
     function spawn(){
-      parts = Array.from({length:80}).map(()=>({
-        x:rnd(0,W), y:rnd(0,H), r:rnd(0.6,2.0), a:rnd(.15,.45),
-        vx:rnd(-.15,.15), vy:rnd(.08,.35)
-      }));
+        parts = Array.from({length:90}).map(()=>({
+            x:rnd(0,W), y:rnd(0,H), r:rnd(0.6,2.2), a:rnd(.15,.45),
+            vx:rnd(-.15,.15), vy:rnd(.08,.35)
+        }));
     }
     function tick(){
-      ctx.clearRect(0,0,W,H);
-      for(const p of parts){
-        p.x+=p.vx; p.y+=p.vy;
-        if(p.y>H || p.x<0 || p.x>W){ p.x=rnd(0,W); p.y=rnd(-20,0); }
-        ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
-        ctx.fillStyle=`rgba(138,180,247,${p.a})`; ctx.fill();
-      }
-      requestAnimationFrame(tick);
+        ctx.clearRect(0,0,W,H);
+        for(const p of parts){
+            p.x+=p.vx; p.y+=p.vy;
+            if(p.y>H || p.x<0 || p.x>W){ p.x=rnd(0,W); p.y=rnd(-20,0); }
+            ctx.beginPath(); ctx.arc(p.x,p.y,p.r,0,Math.PI*2);
+            ctx.fillStyle=`rgba(138,180,247,${p.a})`; ctx.fill();
+        }
+        requestAnimationFrame(tick);
     }
     resize(); spawn(); tick(); window.addEventListener('resize',()=>{resize(); spawn();});
 
-    // === Repos dinámicos @291efx ===
+    /* ==== Repos dinámicos @291efx ==== */
     const REPOS_URL = 'https://api.github.com/users/291efx/repos?per_page=100&sort=updated';
     const list = document.getElementById('repo-list');
     const countEl = document.getElementById('repo-count');
@@ -236,52 +270,248 @@
     const searchInput = document.getElementById('search');
     let ALL = [];
 
-    function card(repo){
-      const date = new Date(repo.pushed_at).toLocaleDateString();
-      const lang = repo.language ? `<span class="tag">${repo.language}</span>` : '';
-      const archived = repo.archived ? '<span class="tag">archivado</span>' : '';
-      return `
+    function repoCard(repo){
+        const date = new Date(repo.pushed_at).toLocaleDateString();
+        const lang = repo.language ? `<span class="tag">${repo.language}</span>` : '';
+        const archived = repo.archived ? '<span class="tag">archivado</span>' : '';
+        return `
         <article class="card reveal">
           <h3>${repo.name}</h3>
           <div class="meta">${repo.language || 'Sin lenguaje principal'} · ⭐ ${repo.stargazers_count} · ↑ ${date}</div>
           <p>${repo.description || 'Sin descripción.'}</p>
           <div class="row">
-            <a class="btn secondary" href="${repo.html_url}" target="_blank" rel="noopener">Código</a>
-            ${repo.homepage ? `<a class="btn" href="${repo.homepage}" target="_blank" rel="noopener">Demo</a>` : ''}
+            <a class="btn secondary" href="${repo.html_url}" target="_blank" rel="noopener">${t('btn.code')}</a>
+            ${repo.homepage ? `<a class="btn" href="${repo.homepage}" target="_blank" rel="noopener">${t('btn.demo')}</a>` : ''}
           </div>
           <div class="tags">${lang}${archived}</div>
         </article>`;
     }
 
-    function render(){
-      const q = (searchInput.value||'').toLowerCase();
-      const lang = langSelect.value;
-      const filtered = ALL.filter(r=>{
-        if(r.fork||r.private) return false;
-        if(lang && r.language !== lang) return false;
-        const text=(r.name+' '+(r.description||'')).toLowerCase();
-        return !q || text.includes(q);
-      });
-      countEl.textContent = `${filtered.length} proyecto${filtered.length===1?'':'s'} visibles`;
-      list.innerHTML = filtered.map(card).join('');
-      document.querySelectorAll('#repo-list .reveal').forEach(el=>io.observe(el));
+    function renderRepos(){
+        const q = (searchInput.value||'').toLowerCase();
+        const lang = langSelect.value;
+        const filtered = ALL.filter(r=>{
+            if(r.fork||r.private) return false;
+            if(lang && r.language !== lang) return false;
+            const text=(r.name+' '+(r.description||'')).toLowerCase();
+            return !q || text.includes(q);
+        });
+        countEl.textContent = `${filtered.length} ${filtered.length===1?t('all.counter_one'):t('all.counter_many')}`;
+        list.innerHTML = filtered.map(repoCard).join('');
+        document.querySelectorAll('#repo-list .reveal').forEach(el=>io.observe(el));
     }
 
     function populateLanguages(repos){
-      const langs = Array.from(new Set(repos.map(r=>r.language).filter(Boolean))).sort();
-      langs.forEach(l=>{ const opt=document.createElement('option'); opt.value=l; opt.textContent=l; langSelect.appendChild(opt); });
+        const langs = Array.from(new Set(repos.map(r=>r.language).filter(Boolean))).sort();
+        langSelect.innerHTML = `<option value="">${t('all.lang_all')}</option>`;
+        langs.forEach(l=>{ const opt=document.createElement('option'); opt.value=l; opt.textContent=l; langSelect.appendChild(opt); });
     }
 
     fetch(REPOS_URL, { headers: { 'Accept': 'application/vnd.github+json' }})
-      .then(r=>r.json())
-      .then(repos=>{
-        ALL = repos.sort((a,b)=>(b.stargazers_count-a.stargazers_count) || (new Date(b.pushed_at)-new Date(a.pushed_at)));
-        populateLanguages(ALL); render();
-      })
-      .catch(()=>{ countEl.textContent='No se pudieron cargar los repositorios.' });
+        .then(r=>r.json())
+        .then(repos=>{
+            ALL = repos.sort((a,b)=>(b.stargazers_count-a.stargazers_count) || (new Date(b.pushed_at)-new Date(a.pushed_at)));
+            populateLanguages(ALL); renderRepos();
+        })
+        .catch(()=>{ countEl.textContent=t('all.load_error'); });
 
-    langSelect.addEventListener('change', render);
-    searchInput.addEventListener('input', render);
-  </script>
+    langSelect.addEventListener('change', renderRepos);
+    searchInput.addEventListener('input', renderRepos);
+
+    /* ==== i18n simple (ES/EN/PT) ==== */
+    const dict = {
+        es: {
+            "meta.title":"Erick Fiestas — Portafolio",
+            "nav.tag":"Ingeniería · Web/Móvil · QA",
+            "nav.about":"Sobre mí",
+            "nav.highlights":"Destacados",
+            "nav.projects":"Proyectos",
+            "nav.contact":"Contacto",
+
+            "about.badge":"Disponible · Java/Spring • Angular • Android • iOS • QA",
+            "about.title":"Desarrollador de software — construyo productos <em style=\"color:var(--accent);font-style:normal\">web y móviles</em> de alta calidad.",
+            "about.p1":"Especializado en <strong>APIs REST con Java/Spring Boot</strong>, <strong>SPAs con Angular/TypeScript</strong> y <strong>aplicaciones móviles</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabajo con <strong>arquitectura limpia (SOLID)</strong>, <strong>automatización de pruebas</strong> (JUnit/Selenium) y CI con GitHub Actions.",
+            "about.p2":"Me enfoco en entregar software mantenible, escalable y medible: documentación clara, diseño de bases de datos (MySQL/SQLite), integración de autenticación, manejo de archivos y notificaciones, y colaboración eficiente con GitFlow.",
+            "about.li1":"Diseño/consumo de APIs y modelado de datos centrado en el dominio.",
+            "about.li2":"Trazabilidad de calidad con pruebas unitarias e integración.",
+            "about.li3":"Optimización de rendimiento y UX cuidada.",
+            "about.cta.projects":"Ver proyectos",
+            "about.cta.contact":"Hablemos",
+            "about.kpi1":"+5 proyectos full-stack",
+            "about.kpi2":"+3 apps móviles",
+            "about.kpi3":"+2 flujos CI/CD",
+
+            "high.title":"Proyectos destacados",
+            "high.blogapi.title":"📝 BlogApp — API REST",
+            "high.blogapi.meta":"Java · Spring Boot · Maven · JUnit",
+            "high.blogapi.desc":"API de publicaciones con autenticación, manejo de archivos y pruebas. Arquitectura limpia y lista para CI/CD.",
+            "high.blogfe.title":"⚡ BlogApp — Frontend (Angular)",
+            "high.blogfe.meta":"Angular 17 · TypeScript",
+            "high.blogfe.desc":"SPA para consumir la API de BlogApp. Componentes reutilizables, rutas protegidas y base para hosting en Pages.",
+            "high.petlife.title":"🐾 PetLife (iOS)",
+            "high.petlife.meta":"UIKit · Core Data · Firebase",
+            "high.petlife.desc":"App nativa para gestionar perfiles, recetas y recordatorios de mascotas. UI programática (sin Storyboard) y persistencia local + sync.",
+
+            "btn.code":"Código",
+            "btn.readme":"README",
+            "btn.demo":"Demo",
+
+            "all.title":"Todos los proyectos",
+            "all.from":"Desde GitHub (@291efx)",
+            "all.search_ph":"Buscar proyecto…",
+            "all.lang_all":"Todos los lenguajes",
+            "all.counter_one":"proyecto visible",
+            "all.counter_many":"proyectos visibles",
+            "all.load_error":"No se pudieron cargar los repositorios.",
+
+            "contact.title":"Contacto",
+            "contact.p1":"¿Construimos algo juntos? Escríbeme:",
+            "footer.made":"Hecho con HTML/CSS puro y GitHub Pages"
+        },
+        en: {
+            "meta.title":"Erick Fiestas — Portfolio",
+            "nav.tag":"Engineering · Web/Mobile · QA",
+            "nav.about":"About",
+            "nav.highlights":"Highlights",
+            "nav.projects":"Projects",
+            "nav.contact":"Contact",
+
+            "about.badge":"Available · Java/Spring • Angular • Android • iOS • QA",
+            "about.title":"Software developer — I build high-quality <em style=\"color:var(--accent);font-style:normal\">web and mobile</em> products.",
+            "about.p1":"Specialized in <strong>REST APIs with Java/Spring Boot</strong>, <strong>SPAs with Angular/TypeScript</strong>, and <strong>mobile apps</strong> for Android (Kotlin) and iOS (UIKit/Core Data). I work with <strong>clean architecture (SOLID)</strong>, <strong>test automation</strong> (JUnit/Selenium), and CI using GitHub Actions.",
+            "about.p2":"I focus on maintainable, scalable, measurable software: clear documentation, database design (MySQL/SQLite), auth/file/notifications integrations, and effective collaboration with GitFlow.",
+            "about.li1":"Domain-driven API design/consumption and data modeling.",
+            "about.li2":"Quality traceability with unit/integration tests.",
+            "about.li3":"Performance optimization and polished UX.",
+            "about.cta.projects":"See projects",
+            "about.cta.contact":"Let’s talk",
+            "about.kpi1":"+5 full-stack projects",
+            "about.kpi2":"+3 mobile apps",
+            "about.kpi3":"+2 CI/CD pipelines",
+
+            "high.title":"Featured projects",
+            "high.blogapi.title":"📝 BlogApp — REST API",
+            "high.blogapi.meta":"Java · Spring Boot · Maven · JUnit",
+            "high.blogapi.desc":"Publishing API with authentication, file handling and tests. Clean architecture and CI/CD-ready.",
+            "high.blogfe.title":"⚡ BlogApp — Frontend (Angular)",
+            "high.blogfe.meta":"Angular 17 · TypeScript",
+            "high.blogfe.desc":"SPA consuming BlogApp API. Reusable components, protected routes and GitHub Pages ready.",
+            "high.petlife.title":"🐾 PetLife (iOS)",
+            "high.petlife.meta":"UIKit · Core Data · Firebase",
+            "high.petlife.desc":"Native app to manage pet profiles, recipes and reminders. Programmatic UI (no Storyboard) and local persistence + sync.",
+
+            "btn.code":"Code",
+            "btn.readme":"README",
+            "btn.demo":"Demo",
+
+            "all.title":"All projects",
+            "all.from":"From GitHub (@291efx)",
+            "all.search_ph":"Search project…",
+            "all.lang_all":"All languages",
+            "all.counter_one":"project visible",
+            "all.counter_many":"projects visible",
+            "all.load_error":"Repositories could not be loaded.",
+
+            "contact.title":"Contact",
+            "contact.p1":"Want to build something together? Write me:",
+            "footer.made":"Built with pure HTML/CSS and GitHub Pages"
+        },
+        pt: {
+            "meta.title":"Erick Fiestas — Portfólio",
+            "nav.tag":"Engenharia · Web/Mobile · QA",
+            "nav.about":"Sobre mim",
+            "nav.highlights":"Destaques",
+            "nav.projects":"Projetos",
+            "nav.contact":"Contato",
+
+            "about.badge":"Disponível · Java/Spring • Angular • Android • iOS • QA",
+            "about.title":"Desenvolvedor de software — crio produtos <em style=\"color:var(--accent);font-style:normal\">web e móveis</em> de alta qualidade.",
+            "about.p1":"Especialista em <strong>APIs REST com Java/Spring Boot</strong>, <strong>SPAs com Angular/TypeScript</strong> e <strong>apps móveis</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabalho com <strong>arquitetura limpa (SOLID)</strong>, <strong>automação de testes</strong> (JUnit/Selenium) e CI com GitHub Actions.",
+            "about.p2":"Foco em software sustentável, escalável e mensurável: documentação clara, projeto de bancos (MySQL/SQLite), integrações de autenticação/arquivos/notificações e colaboração eficiente com GitFlow.",
+            "about.li1":"Projeto/consumo de APIs e modelagem de dados orientada ao domínio.",
+            "about.li2":"Rastreabilidade de qualidade com testes unitários e de integração.",
+            "about.li3":"Otimização de desempenho e UX caprichada.",
+            "about.cta.projects":"Ver projetos",
+            "about.cta.contact":"Vamos conversar",
+            "about.kpi1":"+5 projetos full-stack",
+            "about.kpi2":"+3 apps móveis",
+            "about.kpi3":"+2 pipelines CI/CD",
+
+            "high.title":"Projetos em destaque",
+            "high.blogapi.title":"📝 BlogApp — API REST",
+            "high.blogapi.meta":"Java · Spring Boot · Maven · JUnit",
+            "high.blogapi.desc":"API de publicações com autenticação, arquivos e testes. Arquitetura limpa e pronta para CI/CD.",
+            "high.blogfe.title":"⚡ BlogApp — Frontend (Angular)",
+            "high.blogfe.meta":"Angular 17 · TypeScript",
+            "high.blogfe.desc":"SPA que consome a API do BlogApp. Componentes reutilizáveis, rotas protegidas e pronto para Pages.",
+            "high.petlife.title":"🐾 PetLife (iOS)",
+            "high.petlife.meta":"UIKit · Core Data · Firebase",
+            "high.petlife.desc":"App nativa para gerenciar perfis, receitas e lembretes de pets. UI programática e persistência local + sync.",
+
+            "btn.code":"Código",
+            "btn.readme":"README",
+            "btn.demo":"Demo",
+
+            "all.title":"Todos os projetos",
+            "all.from":"Do GitHub (@291efx)",
+            "all.search_ph":"Buscar projeto…",
+            "all.lang_all":"Todos os idiomas",
+            "all.counter_one":"projeto visível",
+            "all.counter_many":"projetos visíveis",
+            "all.load_error":"Não foi possível carregar os repositórios.",
+
+            "contact.title":"Contato",
+            "contact.p1":"Vamos construir algo juntos? Escreva-me:",
+            "footer.made":"Feito com HTML/CSS puro e GitHub Pages"
+        }
+    };
+
+    let currentLang = 'es';
+    function t(key){
+        const d = dict[currentLang] || dict.es;
+        return key.split('.').reduce((o,k)=>o&&o[k], d) || key;
+    }
+    function applyI18n(){
+        // text nodes
+        document.querySelectorAll('[data-i18n]').forEach(el=>{
+            el.innerHTML = t(el.getAttribute('data-i18n'));
+        });
+        // attributes (placeholder, title, etc.)
+        document.querySelectorAll('[data-i18n-attr]').forEach(el=>{
+            const spec = el.getAttribute('data-i18n-attr'); // e.g. "placeholder:all.search_ph"
+            spec.split(',').forEach(pair=>{
+                const [attr,key] = pair.split(':').map(s=>s.trim());
+                if(attr && key){ el.setAttribute(attr, t(key)); }
+            });
+        });
+        // title tag
+        document.title = t('meta.title');
+        renderRepos(); // re-render labels inside repo cards (buttons)
+        // refresh active buttons
+        document.querySelectorAll('.lang button').forEach(b=>b.classList.toggle('active', b.dataset.lang===currentLang));
+        // set html lang
+        document.documentElement.setAttribute('lang', currentLang);
+    }
+
+    // language selector
+    document.querySelectorAll('.lang button').forEach(btn=>{
+        btn.addEventListener('click', ()=>{
+            currentLang = btn.dataset.lang;
+            localStorage.setItem('portfolio_lang', currentLang);
+            applyI18n();
+        });
+    });
+
+    // initial language (storage or browser)
+    (function initLang(){
+        const saved = localStorage.getItem('portfolio_lang');
+        if(saved && dict[saved]) currentLang = saved;
+        else {
+            const nav = (navigator.language||'es').slice(0,2);
+            if(dict[nav]) currentLang = nav;
+        }
+        applyI18n();
+    })();
+</script>
 </body>
 </html>
