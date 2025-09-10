@@ -15,10 +15,19 @@
             --glow:0 0 20px rgba(138,180,247,.25), inset 0 0 40px rgba(90,169,255,.06);
         }
         *{box-sizing:border-box}
-        html,body{margin:0;padding:0;height:100%;color:var(--text);font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3));background-size:300% 300%;animation:bgmove 25s ease infinite}
+        html,body{
+            margin:0;padding:0;height:100%;
+            color:var(--text);
+            font:16px/1.6 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,"Helvetica Neue",Arial;
+            background:linear-gradient(120deg,var(--bg1),var(--bg2),var(--bg3));
+            background-size:300% 300%;
+            animation:bgmove 25s ease infinite
+        }
         @keyframes bgmove{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
         a{color:var(--brand);text-decoration:none} a:hover{text-decoration:underline}
         .container{max-width:1200px;margin:auto;padding:24px}
+
+        /* ===== NAV ===== */
         header{position:sticky;top:0;z-index:40;background:linear-gradient(180deg,rgba(8,12,20,.75),rgba(8,12,20,.25));backdrop-filter:saturate(150%) blur(10px);border-bottom:1px solid #1a2742}
         .nav{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:12px 24px}
         .brand{display:flex;gap:12px;align-items:center}
@@ -42,24 +51,16 @@
         @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
         .photo-fallback{position:absolute;inset:0;display:grid;place-items:center;border-radius:50%;background:linear-gradient(135deg,var(--brand),var(--accent));font-weight:900;color:#06101c}
 
-        /* NOMBRE */
         .id-panel{background:transparent;border:none;box-shadow:none;padding:0;display:flex;flex-direction:column;gap:14px}
         .id-name{
             margin:0;font-weight:900;letter-spacing:.6px;font-size:clamp(38px,7.2vw,64px);line-height:1.03;
             background:linear-gradient(90deg,#eaf2ff 0%, #cfe4ff 25%, #9fd7ff 45%, #8ef0a5 60%, #cfe4ff 78%, #eaf2ff 100%);
             background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
             animation:shine 6s ease-in-out infinite;
-            text-shadow:0 0 2px rgba(255,255,255,.6),0 0 12px rgba(100,180,255,.25),0 0 28px rgba(100,180,255,.18),0 10px 32px rgba(0,0,0,.35);
-            position:relative;
+            text-shadow:0 0 2px rgba(255,255,255,.6),0 0 12px rgba(100,180,255,.25),0 0 28px rgba(100,180,255,.18),0 10px 32px rgba(0,0,0,.35)
         }
         @keyframes shine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-        .id-name::after{
-            content:"";position:absolute;left:0;right:0;bottom:-10px;height:4px;border-radius:999px;
-            background:linear-gradient(90deg,transparent,rgba(106,169,255,.9),rgba(142,240,165,.95),transparent);
-            box-shadow:0 0 18px rgba(106,169,255,.55), 0 0 24px rgba(142,240,165,.45);
-            animation:underline 3.8s ease-in-out infinite;
-        }
-        .id-title{margin:10px 0 0;color:#d7e6ff;font-weight:800;font-size:clamp(19px,4.4vw,26px);text-shadow:0 0 14px rgba(140,230,255,.22)}
+        .id-title{margin:10px 0 0;color:#d7e6ff;font-weight:800;font-size:clamp(19px,4.4vw,26px)}
         .id-kicker{margin:2px 0 0;color:#9fb2d6}
 
         /* SOBRE MÍ + títulos */
@@ -75,20 +76,10 @@
 
         /* ===== Carrusel 3D Fortalezas ===== */
         .strengths{margin-top:24px}
-        .ring3d{
-            height:310px; position:relative; perspective:1100px;
-            display:grid; place-items:center;   /* centra todo el contenido */
-            user-select:none;
-        }
+        .ring3d{height:310px; position:relative; perspective:1100px; display:grid; place-items:center; user-select:none;}
         .ring3d .hint{position:absolute;bottom:-26px;font-size:.85rem;color:#7fa6ff80}
-        .ring-inner{
-            width:min(900px,100%); height:100%;
-            position:relative; transform-style:preserve-3d;
-            animation:spinY 26s linear infinite; transform-origin:center center;
-        }
-        .ring3d:hover .ring-inner{animation-play-state:paused}
+        .ring-inner{width:min(900px,100%); height:100%; position:relative; transform-style:preserve-3d; animation:spinY 26s linear infinite; transform-origin:center center;}
         @keyframes spinY{to{transform:rotateY(-360deg)}}
-
         .f-card{
             position:absolute; top:50%; left:50%; transform-style:preserve-3d;
             width:260px; min-height:120px; padding:18px 18px 16px;
@@ -96,15 +87,12 @@
             display:flex; gap:12px; align-items:flex-start; transition:transform .25s ease, box-shadow .25s ease;
             will-change:transform;
         }
-        .f-card:hover{box-shadow:0 24px 48px -18px #000b, 0 0 0 1px rgba(90,169,255,.12)}
         .f-ico{flex:0 0 40px;height:40px;border-radius:12px;display:grid;place-items:center;font-size:20px;background:linear-gradient(135deg, rgba(106,169,255,.18), rgba(142,240,165,.18));border:1px solid #22335c}
         .f-text b{display:block;font-size:1rem}
         .f-text span{display:block;color:var(--muted);font-size:.86rem;line-height:1.35}
-
-        /* Posición circular centrada: translate primero, luego rotateY+translateZ */
         .f-card{ --total:6; --radius:420px; --deg:calc((360deg/var(--total))*var(--i)); transform: translate(-50%,-50%) rotateY(var(--deg)) translateZ(var(--radius)); }
 
-        /* GRID MODE (3x2) */
+        /* GRID MODE (3x2) cuando el usuario hace click/tap */
         .ring3d.grid-mode{height:auto}
         .ring3d.grid-mode .ring-inner{
             animation:none; transform:none; transform-style:flat;
@@ -114,14 +102,7 @@
             position:relative; left:auto; top:auto; transform:none; width:auto; min-height:110px;
         }
 
-        /* Reduce motion => grid por accesibilidad */
-        @media (prefers-reduced-motion: reduce){
-            .ring3d{height:auto}
-            .ring-inner{position:relative;animation:none;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
-            .f-card{position:relative;left:auto;top:auto;transform:none;width:auto}
-        }
-
-        /* Secciones */
+        /* Secciones base */
         section{margin-top:56px}
         h2{font-size:1.8rem;margin:0 0 16px}
         .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
@@ -149,6 +130,7 @@
         .reveal.visible{opacity:1;transform:translateY(0) scale(1);filter:blur(0);transition:all .7s cubic-bezier(.2,.8,.2,1)}
         footer{margin:56px 0 16px;color:var(--muted);font-size:.9rem}
 
+        /* ===== RESPONSIVE ===== */
         @media (max-width:1100px){ .grid{grid-template-columns:1fr 1fr} .tech-grid{grid-template-columns:1fr 1fr} }
         @media (max-width:920px){
             .hero-top{grid-template-columns:1fr;gap:28px}
@@ -156,12 +138,32 @@
             .id-panel{text-align:center}
             .hero-inner{gap:36px}
         }
+
+        /* ===== SOLO FIX EN MÓVIL (≤640px): carrusel → grid 2×3, tipografías y paddings ===== */
         @media (max-width:640px){
             .grid{grid-template-columns:1fr}
             .tech-grid{grid-template-columns:1fr}
             .nav .row{display:none}
             .hero-inner{padding:64px 18px 34px}
             section{margin-top:52px}
+
+            .id-name{font-size:clamp(28px,9vw,36px)}
+            .id-title{font-size:clamp(16px,4.3vw,18px)}
+            .hero-title-1{font-size:clamp(22px,6.4vw,28px)}
+            .hero-title-2{font-size:clamp(16px,4.8vw,18px)}
+            .photo-orbit{width:240px;height:240px;margin-inline:auto}
+
+            .ring3d{height:auto}
+            .ring3d .ring-inner{
+                animation:none!important;transform:none!important;transform-style:flat!important;
+                display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:12px!important;padding:4px 2px!important
+            }
+            .ring3d .f-card{
+                position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:auto!important;min-height:110px
+            }
+            .ring3d .hint{display:none!important}
+            .btn{padding:12px 14px;border-radius:12px}
+            .control{width:100%}
         }
     </style>
 </head>
@@ -217,7 +219,7 @@
             <p>Especializado en <strong>APIs REST con Java/Spring Boot</strong>, <strong>SPAs con Angular/TypeScript</strong> y <strong>aplicaciones móviles</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabajo con <strong>arquitectura limpia (SOLID)</strong>, <strong>automatización de pruebas</strong> (JUnit/Selenium) y CI con GitHub Actions.</p>
             <p>Me enfoco en software mantenible, escalable y medible: documentación clara, diseño de bases de datos (MySQL/SQLite), integración de autenticación, archivos y notificaciones, y colaboración eficiente con GitFlow.</p>
 
-            <!-- Carrusel 3D / Grid -->
+            <!-- Fortalezas: carrusel 3D (desktop) / matriz 2×3 (móvil) -->
             <div class="strengths">
                 <div class="ring3d" id="ringWrap" title="Click para alternar carrusel ↔ matriz">
                     <div class="ring-inner" id="ring">
@@ -384,7 +386,7 @@
 <footer class="container">© <span id="y"></span> Erick Fiestas · Hecho con HTML/CSS puro y GitHub Pages</footer>
 
 <script>
-    // Año
+    // Año dinámico
     document.getElementById('y').textContent = new Date().getFullYear();
 
     // Reveal on scroll
@@ -427,7 +429,7 @@
         resize(); spawn(); tick(); window.addEventListener('resize',()=>{resize(); spawn();});
     })();
 
-    // Repos dinámicos
+    // Repos dinámicos desde GitHub
     (function(){
         const REPOS_URL = 'https://api.github.com/users/291efx/repos?per_page=100&sort=updated';
         const list = document.getElementById('repo-list');
@@ -442,16 +444,16 @@
             const lang = repo.language ? `<span class="tag">${repo.language}</span>` : '';
             const archived = repo.archived ? '<span class="tag">archivado</span>' : '';
             return `
-          <article class="card reveal">
-            <h3>${repo.name}</h3>
-            <div class="meta">${repo.language || 'Sin lenguaje principal'} · ⭐ ${repo.stargazers_count} · ↑ ${date}</div>
-            <p>${repo.description || 'Sin descripción.'}</p>
-            <div class="row">
-              <a class="btn secondary" href="${repo.html_url}" target="_blank" rel="noopener">Código</a>
-              ${repo.homepage ? `<a class="btn" href="${repo.homepage}" target="_blank" rel="noopener">Demo</a>` : ''}
-            </div>
-            <div class="tags">${lang}${archived}</div>
-          </article>`;
+        <article class="card reveal">
+          <h3>${repo.name}</h3>
+          <div class="meta">${repo.language || 'Sin lenguaje principal'} · ⭐ ${repo.stargazers_count} · ↑ ${date}</div>
+          <p>${repo.description || 'Sin descripción.'}</p>
+          <div class="row">
+            <a class="btn secondary" href="${repo.html_url}" target="_blank" rel="noopener">Código</a>
+            ${repo.homepage ? `<a class="btn" href="${repo.homepage}" target="_blank" rel="noopener">Demo</a>` : ''}
+          </div>
+          <div class="tags">${lang}${archived}</div>
+        </article>`;
         }
 
         function render(){
@@ -486,25 +488,24 @@
         searchInput.addEventListener('input', render);
     })();
 
-    // Carrusel: pausa al entrar a cada tarjeta y click -> alternar matriz/carrusel
+    // Carrusel: pausa al hover y click → alternar matriz/carrusel (desktop)
     (function(){
         const wrap = document.getElementById('ringWrap');
         const ring = document.getElementById('ring');
         const hint = document.getElementById('hint');
         if(!wrap || !ring) return;
 
-        // Pausar animación al pasar el mouse sobre una tarjeta
         ring.querySelectorAll('.f-card').forEach(card=>{
             card.addEventListener('mouseenter', ()=>{ ring.style.animationPlayState='paused'; });
             card.addEventListener('mouseleave', ()=>{ if(!wrap.classList.contains('grid-mode')) ring.style.animationPlayState='running'; });
         });
 
-        // Toggle grid <-> ring al click (tap en móvil)
         wrap.addEventListener('click', ()=>{
+            // En móvil ya forzamos grid por CSS; este toggle afecta principalmente desktop/tablet.
             wrap.classList.toggle('grid-mode');
             const grid = wrap.classList.contains('grid-mode');
             ring.style.animationPlayState = grid ? 'paused' : 'running';
-            hint.textContent = grid ? 'Click para volver al carrusel' : 'Click para ver en matriz';
+            if(hint) hint.textContent = grid ? 'Click para volver al carrusel' : 'Click para ver en matriz';
         });
     })();
 </script>
