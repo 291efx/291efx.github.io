@@ -57,10 +57,20 @@
             background:linear-gradient(90deg,#eaf2ff 0%, #cfe4ff 25%, #9fd7ff 45%, #8ef0a5 60%, #cfe4ff 78%, #eaf2ff 100%);
             background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
             animation:shine 6s ease-in-out infinite;
-            text-shadow:0 0 2px rgba(255,255,255,.6),0 0 12px rgba(100,180,255,.25),0 0 28px rgba(100,180,255,.18),0 10px 32px rgba(0,0,0,.35)
+            text-shadow:0 0 2px rgba(255,255,255,.6),0 0 12px rgba(100,180,255,.25),0 0 28px rgba(100,180,255,.18),0 10px 32px rgba(0,0,0,.35);
+            position:relative;
         }
         @keyframes shine{0%,100%{background-position:0% 50%}50%{background-position:100% 50%}}
-        .id-title{margin:10px 0 0;color:#d7e6ff;font-weight:800;font-size:clamp(19px,4.4vw,26px)}
+        /* >>> Línea neón bajo el nombre (vuelve) */
+        .id-name::after{
+            content:"";position:absolute;left:0;right:0;bottom:-12px;height:4px;border-radius:999px;
+            background:linear-gradient(90deg,transparent,rgba(106,169,255,.95),rgba(142,240,165,.95),transparent);
+            box-shadow:0 0 18px rgba(106,169,255,.55),0 0 24px rgba(142,240,165,.45);
+            animation:underline 3.8s ease-in-out infinite;
+        }
+        @keyframes underline{0%,100%{transform:translateX(0)}50%{transform:translateX(2px)}}
+
+        .id-title{margin:14px 0 0;color:#d7e6ff;font-weight:800;font-size:clamp(19px,4.4vw,26px)}
         .id-kicker{margin:2px 0 0;color:#9fb2d6}
 
         /* SOBRE MÍ + títulos */
@@ -74,7 +84,7 @@
         .btn.secondary{background:#0d1422;color:var(--text);border:1px solid #213150}
         .row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 
-        /* ===== Carrusel 3D Fortalezas ===== */
+        /* ===== Fortalezas (carrusel 3D) ===== */
         .strengths{margin-top:24px}
         .ring3d{height:310px; position:relative; perspective:1100px; display:grid; place-items:center; user-select:none;}
         .ring3d .hint{position:absolute;bottom:-26px;font-size:.85rem;color:#7fa6ff80}
@@ -92,15 +102,13 @@
         .f-text span{display:block;color:var(--muted);font-size:.86rem;line-height:1.35}
         .f-card{ --total:6; --radius:420px; --deg:calc((360deg/var(--total))*var(--i)); transform: translate(-50%,-50%) rotateY(var(--deg)) translateZ(var(--radius)); }
 
-        /* GRID MODE (3x2) cuando el usuario hace click/tap */
+        /* Grid 3x2 cuando el usuario pulsa (desktop/tablet) */
         .ring3d.grid-mode{height:auto}
         .ring3d.grid-mode .ring-inner{
             animation:none; transform:none; transform-style:flat;
             display:grid; grid-template-columns:repeat(3,1fr); gap:16px; padding:6px 2px;
         }
-        .ring3d.grid-mode .f-card{
-            position:relative; left:auto; top:auto; transform:none; width:auto; min-height:110px;
-        }
+        .ring3d.grid-mode .f-card{ position:relative; left:auto; top:auto; transform:none; width:auto; min-height:110px; }
 
         /* Secciones base */
         section{margin-top:56px}
@@ -139,7 +147,7 @@
             .hero-inner{gap:36px}
         }
 
-        /* ===== SOLO FIX EN MÓVIL (≤640px): carrusel → grid 2×3, tipografías y paddings ===== */
+        /* ===== FIX MÓVIL: TODO a 1 columna y fortalezas en 1×6 ===== */
         @media (max-width:640px){
             .grid{grid-template-columns:1fr}
             .tech-grid{grid-template-columns:1fr}
@@ -153,13 +161,14 @@
             .hero-title-2{font-size:clamp(16px,4.8vw,18px)}
             .photo-orbit{width:240px;height:240px;margin-inline:auto}
 
+            /* Fortalezas en una sola columna (siempre legibles) */
             .ring3d{height:auto}
             .ring3d .ring-inner{
                 animation:none!important;transform:none!important;transform-style:flat!important;
-                display:grid!important;grid-template-columns:repeat(2,1fr)!important;gap:12px!important;padding:4px 2px!important
+                display:grid!important;grid-template-columns:1fr!important;gap:12px!important;padding:4px 0!important
             }
             .ring3d .f-card{
-                position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:auto!important;min-height:110px
+                position:relative!important;left:auto!important;top:auto!important;transform:none!important;width:100%!important;min-height:110px
             }
             .ring3d .hint{display:none!important}
             .btn{padding:12px 14px;border-radius:12px}
@@ -219,7 +228,7 @@
             <p>Especializado en <strong>APIs REST con Java/Spring Boot</strong>, <strong>SPAs con Angular/TypeScript</strong> y <strong>aplicaciones móviles</strong> para Android (Kotlin) e iOS (UIKit/Core Data). Trabajo con <strong>arquitectura limpia (SOLID)</strong>, <strong>automatización de pruebas</strong> (JUnit/Selenium) y CI con GitHub Actions.</p>
             <p>Me enfoco en software mantenible, escalable y medible: documentación clara, diseño de bases de datos (MySQL/SQLite), integración de autenticación, archivos y notificaciones, y colaboración eficiente con GitFlow.</p>
 
-            <!-- Fortalezas: carrusel 3D (desktop) / matriz 2×3 (móvil) -->
+            <!-- Fortalezas -->
             <div class="strengths">
                 <div class="ring3d" id="ringWrap" title="Click para alternar carrusel ↔ matriz">
                     <div class="ring-inner" id="ring">
@@ -386,7 +395,7 @@
 <footer class="container">© <span id="y"></span> Erick Fiestas · Hecho con HTML/CSS puro y GitHub Pages</footer>
 
 <script>
-    // Año dinámico
+    // Año
     document.getElementById('y').textContent = new Date().getFullYear();
 
     // Reveal on scroll
@@ -429,7 +438,7 @@
         resize(); spawn(); tick(); window.addEventListener('resize',()=>{resize(); spawn();});
     })();
 
-    // Repos dinámicos desde GitHub
+    // Repos dinámicos
     (function(){
         const REPOS_URL = 'https://api.github.com/users/291efx/repos?per_page=100&sort=updated';
         const list = document.getElementById('repo-list');
@@ -501,7 +510,6 @@
         });
 
         wrap.addEventListener('click', ()=>{
-            // En móvil ya forzamos grid por CSS; este toggle afecta principalmente desktop/tablet.
             wrap.classList.toggle('grid-mode');
             const grid = wrap.classList.contains('grid-mode');
             ring.style.animationPlayState = grid ? 'paused' : 'running';
